@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>New Report</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+
+
+    <!--    range animation script-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+OI EU SOU A PÁGINA DE REPORT
+
+<div class="container">
+    <div class="card">
+
+        <form class="card-body">
+
+
+            <div class="form-group">
+
+                <label>Date: </label>
+                <input type="date" name="date" id="date">
+            </div>
+
+            <div class="form-group">
+
+                <label>Drugs </label>
+                <input type="text">
+            </div>
+
+
+            <div class="form-group">
+                <label>How do you classify the day?</label></br>
+                <small>0 for hard 5 for easy</small>
+                <input type="range" class="form-range" min="0" max="5" step="1"
+                       onInput="$('#rangeval').html($(this).val())">
+                <span id="rangeval">5<!-- Default value --></span>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Did the patient had sudden change of humor</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" value="1">
+                    <label class="form-check-label">
+                        Yes
+                    </label>
+                </div>
+
+            </div>
+
+            <label>How was Dona Rita's mood today?</label>
+            <small>more than one item can be checked</small>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="feliz">
+                <label class="form-check-label" >
+                    Feliz
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Triste
+                </label>
+            </div>
+
+
+
+
+            <input type="submit"  class="btn btn-primary m-1 px-5 rounded"/>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
