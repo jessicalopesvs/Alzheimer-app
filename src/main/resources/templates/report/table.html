@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head}">
     <title>Home</title>
+
 </head>
 <body>
 
@@ -16,26 +17,26 @@
 
                 <table class="table table-hover">
                     <thead class="table-dark text-center">
-                    <tr>
-                        <th>Date</th>
+                    <tr class="thead-hover">
+                        <th>Report Date</th>
                         <th>Day Rating</th>
                         <th>Drug</th>
                         <th>Mood Swing</th>
-                        <th>Moods</th>
-                        <th>Moods</th>
+                        <th>Behaviors</th>
+                        <th>Symptoms</th>
                         <th>Moods</th>
                     </tr>
                     </thead>
 
                     <tbody>
                     <tr th:each="report : ${reports}" class="text-center">
-                        <td>20/20/20</td>
+                        <td th:text="${#dates.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
                         <td th:text="${report.dayClassification}">Day Rating</td>
                         <td th:text="${report.drug}">Drugs</td>
                         <td th:text="${report.moodSwingClass}">MoodSwing</td>
-                        <td>Column</td>
-                        <td>Moods List</td>
-                        <td>Moods List</td>
+                        <td>test</td>
+                        <td>test</td>
+                        <td>test</td>
                     </tr>
 
                     </tbody>

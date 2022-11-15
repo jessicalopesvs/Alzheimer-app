@@ -16,20 +16,20 @@
         <form th:action="@{/report/new-report}" method="POST" class="card-body" th:object="${requestNewReport}">
 
 
-<!--            <div class="form-group">-->
+            <div class="form-group">
 
-<!--                <label>Date: </label>-->
-<!--                <input type="date" name="date" id="date">-->
-<!--            </div>-->
+                <label>Date: </label>
+                <input th:field="${requestNewReport.date}" class="form-control" type="date" name="date" id="date">
+            </div>
 
             <div class="form-group">
 
-                <label>Drugs </label>
+                <label>Treatment </label>
                 <!--/*@thymesVar id="drug" type="com.nci.webapp"*/-->
-                <input th:field="*{drug}" class="form-control" th:errorclass="is-invalid" placeholder="nome do produto"/>
+                <input th:field="*{drug}" class="form-control" th:errorclass="is-invalid" placeholder="medicine name"/>
             </div>
 
-
+            <h2>Behavior</h2>
             <div class="form-group">
                 <label>How do you classify the day?</label></br>
                 <small>0 for hard 5 for easy</small>
@@ -80,4 +80,15 @@
     </div>
 </div>
 </body>
+
+<!--    range animation script-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </html>

@@ -7,12 +7,14 @@ import javax.validation.constraints.NotBlank;
 
 import com.nci.webapp.AlzApp.model.MoodList;
 import com.nci.webapp.AlzApp.model.Report;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RequestNewReport {
+public class RequestNewReport implements Serializable {
 
-
+    @DateTimeFormat(pattern = "yyy-MM-dd")
     private Date date;
     private String drug;
     private int dayClassification;
