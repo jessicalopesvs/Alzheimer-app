@@ -1,55 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Table</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
-
+<head th:replace="~{fragments :: head}">
+    <title>Home</title>
 </head>
 <body>
 
-TABLE PAGE
-
-<div class="container">
-            <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
-            <div class="table-wrap">
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead class="table-dark">
-                        <tr>
-                            <th>Date</th>
-                            <th>Day Rating</th>
-                            <th>Drug</th>
-                            <th>Mood Swing</th>
-                            <th>Moods</th>
-                            <th>Moods</th>
-                            <th>Moods</th>
-                        </tr>
-                        </thead>
-                    </table>
+<div th:replace="~{fragments :: logo}"></div>
 
 
-                    <table class="table table-hover">
 
-                        <tbody>
-                        <tr th:each="report : ${reports}" class="alert">
-                            <td>20/20/20</td>
-                            <td th:text="${report.dayClassification}">Day Rating</td>
-                            <td th:text="${report.drug}">Drugs</td>
-                            <td th:text="${report.moodSwingClass}">MoodSwing</td>
-                            <td th:text="${report.moodSwing}">Moods List</td>
-                            <td th:text="${report.moodSwing}">Moods List</td>
-                            <td th:text="${report.moodSwing}">Moods List</td>
-                        </tr>
+<div class="container ">
+    <h1 class="text-center">TABLE PAGE</h1>
+    <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
+        <div class="table-wrap">
 
-                        </tbody>
+                <table class="table table-hover">
+                    <thead class="table-dark text-center">
+                    <tr>
+                        <th>Date</th>
+                        <th>Day Rating</th>
+                        <th>Drug</th>
+                        <th>Mood Swing</th>
+                        <th>Moods</th>
+                        <th>Moods</th>
+                        <th>Moods</th>
+                    </tr>
+                    </thead>
 
-                    </table>
-                </div>
+                    <tbody>
+                    <tr th:each="report : ${reports}" class="text-center">
+                        <td>20/20/20</td>
+                        <td th:text="${report.dayClassification}">Day Rating</td>
+                        <td th:text="${report.drug}">Drugs</td>
+                        <td th:text="${report.moodSwingClass}">MoodSwing</td>
+                        <td>Column</td>
+                        <td>Moods List</td>
+                        <td>Moods List</td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
             </div>
+        </div>
+
 </div>
 
 
