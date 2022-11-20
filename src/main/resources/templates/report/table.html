@@ -9,41 +9,68 @@
 <div th:replace="~{fragments :: logo}"></div>
 
 
-
-<div class="container ">
+<div class="container">
     <h1 class="text-center">TABLE PAGE</h1>
     <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
+    <div class="row d-flex">
         <div class="table-wrap">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark  text-center">
+                <tr class="thead-hover">
+                    <th class="px-5 mx-3">Report Date</th>
+                    <th class="px-5">Drug</th>
+                    <th>Day Rating</th>
+                    <!--                    <th>Mood Swing</th>-->
+                    <th>Trust</th>
+                    <th>Disgust</th>
+                    <th>Sadness</th>
+                    <th>Anticipation</th>
+                    <th>Joy</th>
+                    <th>Surprise</th>
+                    <th>Anger</th>
 
-                <table class="table table-hover">
-                    <thead class="table-dark text-center">
-                    <tr class="thead-hover">
-                        <th>Report Date</th>
-                        <th>Day Rating</th>
-                        <th>Drug</th>
-                        <th>Mood Swing</th>
-                        <th>Behaviors</th>
-                        <th>Symptoms</th>
-                        <th>Moods</th>
-                    </tr>
-                    </thead>
+<!--                    SYMPTOMS-->
+                    <th>Sleepy</th>
+                    <th>Weakness</th>
+                    <th>Nauseus</th>
+                    <th>Vomit</th>
+                    <th>Appetite</th>
+                    <th>Headache</th>
+                    <th>Bodyache</th>
 
-                    <tbody>
-                    <tr th:each="report : ${reports}" class="text-center">
-                        <td th:text="${#dates.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
-                        <td th:text="${report.dayClassification}">Day Rating</td>
-                        <td th:text="${report.drug}">Drugs</td>
-                        <td th:text="${report.moodSwingClass}">MoodSwing</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                    </tr>
+                </tr>
+                </thead>
 
-                    </tbody>
+                <tbody>
+                <tr th:each="report : ${reports}" class="text-center">
+                    <td th:text="${#dates.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
+                    <td th:text="${report.drug}">Drugs</td>
+                    <td th:text="${report.dayClassification}">Day Rating</td>
+                    <!--                    <td th:text="${report.moodSwingClass}">MoodSwing</td>-->
+                    <td th:text="${report.trust}">Trust</td>
+                    <td th:text="${report.disgust}">disgust</td>
+                    <td th:text="${report.sadness}">sadness</td>
+                    <td th:text="${report.anticipation}">anticipation</td>
+                    <td th:text="${report.joy}">joy</td>
+                    <td th:text="${report.surprise}">surprise</td>
+                    <td th:text="${report.anger}">anger</td>
 
-                </table>
-            </div>
+<!--                    SYMPTOMS-->
+
+                    <td th:text="${report.sleepy}">Sleepy</td>
+                    <td th:text="${report.weak}">Weakness</td>
+                    <td th:text="${report.nauseus}">Nauseus</td>
+                    <td th:text="${report.vomit}">Vomit</td>
+                    <td th:text="${report.lackAppetite}">Appetite</td>
+                    <td th:text="${report.headache}">Headache</td>
+                    <td th:text="${report.bodyache}">Bodyache</td>
+                </tr>
+                </tbody>
+
+            </table>
         </div>
+    </div>
+</div>
 
 </div>
 

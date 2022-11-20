@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head th:replace="~{fragments :: head}">
+<body>
+
+<div th:replace="~{fragments :: logo}"></div>
+
+<h1>Treatment</h1>
+
+<div class="container">
+    <div class="card">
+    <!--/*@thymesVar id="requestMedication" type="com"*/-->
+    <form th:action="@{/treatment}" method="post" class="card-body" th:object="${requestMedication}">
+        <div class="form-group">
+            <h2>Medication</h2>
+
+            <div th:each="">
+
+
+            </div>
+
+        </div>
+    </form>
+    </div>
+</div>
+
+</body>
+</html>
