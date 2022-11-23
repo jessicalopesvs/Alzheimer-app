@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Home</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments :: logo}"></div>
+
+<!--<div th:replace="~{base :: titulo('Login')}"></div>-->
+<div class="container">
+
+    <div class="card-header mb-3">
+        <form th:action="@{/login}" method="post">
+            <div class="formgroup">
+            <div><label for="user"> User Name :
+                <input placeholder="username" type="text" name="username" class="form-control"/> </label></div>
+            <div><label for="password"> Password:
+                <input placeholder="password" type="password" name="password" class="form-control"/> </label></div>
+            <div><input class="btn btn-primary" type="submit" value="Sign In"/></div>
+            </div>
+        </form>
+
+    </div>
+
+
+</div>
+
+</body>
+</html></textarea>

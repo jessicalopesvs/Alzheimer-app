@@ -3,7 +3,6 @@ package com.nci.webapp.AlzApp.service;
 import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -26,6 +25,8 @@ public class TableService {
         model.addAttribute("reports", reports);
 
     }
+
+
 
 
 }

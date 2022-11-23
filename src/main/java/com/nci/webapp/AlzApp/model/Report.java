@@ -1,11 +1,11 @@
 package com.nci.webapp.AlzApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Report implements Serializable {
@@ -17,6 +17,38 @@ public class Report implements Serializable {
     private String drug;
     private int dayClassification;
     private int moodSwingClass;
+    @Column(name="arguments")
+    @ElementCollection(targetClass=String.class)
+    private List<String> sideEffects = new ArrayList<>();
+
+    @Column(name="emotionRating")
+    @MapKeyColumn(name="emotion")
+    @ElementCollection
+    private Map<String,Integer> behaviour = new HashMap<>();
+
+
+    @MapKeyColumn(name="symptoms")
+    @Column(name="symptomRating")
+    @ElementCollection
+    private Map<String,Integer> symptom= new HashMap<>();
+
+
+
+
+    @JsonIgnore
+    @ManyToOne (fetch = FetchType.EAGER)
+    private User user;
+
+
+//    List<Behavior> behaviors;
+
+//    @entity
+//    class Behavior
+//    String name;
+//    int classification;
+//    enum type; // Emotion, Symptom
+
+//    getBehaviors -> filter by type == Emotion
 
     //emotions
 
@@ -25,70 +57,78 @@ public class Report implements Serializable {
 
     //symptoms
 
-    private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache;
+    private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache, confusionalState;
 
-    public int getSleepy() {
-        return sleepy;
+    public long getId() {
+        return id;
     }
 
-    public void setSleepy(int sleepy) {
-        this.sleepy = sleepy;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public int getWeak() {
-        return weak;
+    public Date getDate() {
+        return date;
     }
 
-    public void setWeak(int weak) {
-        this.weak = weak;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public int getNauseus() {
-        return nauseus;
+    public String getDrug() {
+        return drug;
     }
 
-    public void setNauseus(int nauseus) {
-        this.nauseus = nauseus;
+    public void setDrug(String drug) {
+        this.drug = drug;
     }
 
-    public int getVomit() {
-        return vomit;
+    public int getDayClassification() {
+        return dayClassification;
     }
 
-    public void setVomit(int vomit) {
-        this.vomit = vomit;
+    public void setDayClassification(int dayClassification) {
+        this.dayClassification = dayClassification;
     }
 
-    public int getLackAppetite() {
-        return lackAppetite;
+    public int getMoodSwingClass() {
+        return moodSwingClass;
     }
 
-    public void setLackAppetite(int lackAppetite) {
-        this.lackAppetite = lackAppetite;
+    public void setMoodSwingClass(int moodSwingClass) {
+        this.moodSwingClass = moodSwingClass;
     }
 
-    public int getHeadache() {
-        return headache;
+    public List<String> getSideEffects() {
+        return sideEffects;
     }
 
-    public void setHeadache(int headache) {
-        this.headache = headache;
+    public void setSideEffects(List<String> sideEffects) {
+        this.sideEffects = sideEffects;
     }
 
-    public int getBodyache() {
-        return bodyache;
+    public Map<String, Integer> getBehaviour() {
+        return behaviour;
     }
 
-    public void setBodyache(int bodyache) {
-        this.bodyache = bodyache;
+    public void setBehaviour(Map<String, Integer> behaviour) {
+        this.behaviour = behaviour;
     }
 
-    public int getAnger() {
-        return anger;
+    public Map<String, Integer> getSymptom() {
+        return symptom;
     }
 
-    public void setAnger(int anger) {
-        this.anger = anger;
+    public void setSymptom(Map<String, Integer> symptom) {
+        this.symptom = symptom;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getTrust() {
@@ -147,66 +187,75 @@ public class Report implements Serializable {
         this.surprise = surprise;
     }
 
-    @OneToMany (cascade = CascadeType.ALL, mappedBy = "reports", fetch = FetchType.LAZY)
-    private List<Emotions> emotionsList;
-
-
-    public void setEmotionsList(List<Emotions> emotionsList) {
-        this.emotionsList = emotionsList;
+    public int getAnger() {
+        return anger;
     }
 
-    public List<Emotions> getEmotionsList() {
-        return emotionsList;
+    public void setAnger(int anger) {
+        this.anger = anger;
     }
 
-    public int getMoodSwingClass() {
-        return moodSwingClass;
+    public int getSleepy() {
+        return sleepy;
     }
 
-    public void setMoodSwingClass(int moodSwingClass) {
-        this.moodSwingClass = moodSwingClass;
+    public void setSleepy(int sleepy) {
+        this.sleepy = sleepy;
     }
 
-
-    private MoodList mood;
-
-    public long getId() {
-        return id;
+    public int getWeak() {
+        return weak;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setWeak(int weak) {
+        this.weak = weak;
     }
 
-    public Date getDate() {
-        return date;
+    public int getNauseus() {
+        return nauseus;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setNauseus(int nauseus) {
+        this.nauseus = nauseus;
     }
 
-    public String getDrug() {
-        return drug;
+    public int getVomit() {
+        return vomit;
     }
 
-    public void setDrug(String drug) {
-        this.drug = drug;
+    public void setVomit(int vomit) {
+        this.vomit = vomit;
     }
 
-    public int getDayClassification() {
-        return dayClassification;
+    public int getLackAppetite() {
+        return lackAppetite;
     }
 
-    public void setDayClassification(int dayClassification) {
-        this.dayClassification = dayClassification;
+    public void setLackAppetite(int lackAppetite) {
+        this.lackAppetite = lackAppetite;
     }
 
-    public MoodList getMood() {
-        return mood;
+    public int getHeadache() {
+        return headache;
     }
 
-    public void setMood(MoodList mood) {
-        this.mood = mood;
+    public void setHeadache(int headache) {
+        this.headache = headache;
+    }
+
+    public int getBodyache() {
+        return bodyache;
+    }
+
+    public void setBodyache(int bodyache) {
+        this.bodyache = bodyache;
+    }
+
+    public int getConfusionalState() {
+        return confusionalState;
+    }
+
+    public void setConfusionalState(int confusionalState) {
+        this.confusionalState = confusionalState;
     }
 }

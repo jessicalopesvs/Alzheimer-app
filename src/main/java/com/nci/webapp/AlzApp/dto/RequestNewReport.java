@@ -4,15 +4,11 @@ package com.nci.webapp.AlzApp.dto;
 //validation class
 
 import com.nci.webapp.AlzApp.model.Emotions;
-import com.nci.webapp.AlzApp.model.MoodList;
 import com.nci.webapp.AlzApp.model.Report;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class RequestNewReport implements Serializable {
 
@@ -21,138 +17,26 @@ public class RequestNewReport implements Serializable {
     private String drug;
     private int dayClassification;
     private int moodSwingClass;
-    private MoodList moodSwing;
+    private Emotions moodSwing;
 
-    private HashMap<String, Integer> moods;
+    //Lists
+    private Map<String,Integer> symptom= new HashMap<>();
+    private Map<String,Integer> behaviour = new HashMap<>();
+    private List<String> sideEffects = new ArrayList<>();
+
 
     //emotions
 
-    private int trust, disgust, fear, sadness, anticipation, joy, surprise, anger;
+//    private int trust, disgust, fear, sadness, anticipation, joy, surprise, anger;
 
 
     //symptoms
 
-    private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache;
+//    private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache, confusionalState;
 
-    public int getSleepy() {
-        return sleepy;
-    }
 
-    public void setSleepy(int sleepy) {
-        this.sleepy = sleepy;
-    }
 
-    public int getWeak() {
-        return weak;
-    }
-
-    public void setWeak(int weak) {
-        this.weak = weak;
-    }
-
-    public int getNauseus() {
-        return nauseus;
-    }
-
-    public void setNauseus(int nauseus) {
-        this.nauseus = nauseus;
-    }
-
-    public int getVomit() {
-        return vomit;
-    }
-
-    public void setVomit(int vomit) {
-        this.vomit = vomit;
-    }
-
-    public int getLackAppetite() {
-        return lackAppetite;
-    }
-
-    public void setLackAppetite(int lackAppetite) {
-        this.lackAppetite = lackAppetite;
-    }
-
-    public int getHeadache() {
-        return headache;
-    }
-
-    public void setHeadache(int headache) {
-        this.headache = headache;
-    }
-
-    public int getBodyache() {
-        return bodyache;
-    }
-
-    public void setBodyache(int bodyache) {
-        this.bodyache = bodyache;
-    }
-
-    public int getTrust() {
-        return trust;
-    }
-
-    public void setTrust(int trust) {
-        this.trust = trust;
-    }
-
-    public int getDisgust() {
-        return disgust;
-    }
-
-    public void setDisgust(int disgust) {
-        this.disgust = disgust;
-    }
-
-    public int getFear() {
-        return fear;
-    }
-
-    public void setFear(int fear) {
-        this.fear = fear;
-    }
-
-    public int getSadness() {
-        return sadness;
-    }
-
-    public void setSadness(int sadness) {
-        this.sadness = sadness;
-    }
-
-    public int getAnticipation() {
-        return anticipation;
-    }
-
-    public void setAnticipation(int anticipation) {
-        this.anticipation = anticipation;
-    }
-
-    public int getJoy() {
-        return joy;
-    }
-
-    public void setJoy(int joy) {
-        this.joy = joy;
-    }
-
-    public int getSurprise() {
-        return surprise;
-    }
-
-    public void setSurprise(int surprise) {
-        this.surprise = surprise;
-    }
-
-    public int getAnger() {
-        return anger;
-    }
-
-    public void setAnger(int anger) {
-        this.anger = anger;
-    }
+    //GETTERS AND SETTERS
 
     public Date getDate() {
         return date;
@@ -186,27 +70,43 @@ public class RequestNewReport implements Serializable {
         this.moodSwingClass = moodSwingClass;
     }
 
-    public MoodList getMoodSwing() {
+    public Emotions getMoodSwing() {
         return moodSwing;
     }
 
-    public void setMoodSwing(MoodList moodSwing) {
+    public void setMoodSwing(Emotions moodSwing) {
         this.moodSwing = moodSwing;
     }
 
-    public HashMap<String, Integer> getMoods() {
-        return moods;
+    public Map<String, Integer> getSymptom() {
+        return symptom;
     }
 
-    public void setMoods(HashMap<String, Integer> moods) {
-        this.moods = moods;
+    public void setSymptom(Map<String, Integer> symptom) {
+        this.symptom = symptom;
     }
+
+    public Map<String, Integer> getBehaviour() {
+        return behaviour;
+    }
+
+    public void setBehaviour(Map<String, Integer> behaviour) {
+        this.behaviour = behaviour;
+    }
+
+    public List<String> getSideEffects() {
+        return sideEffects;
+    }
+
+    public void setSideEffects(List<String> sideEffects) {
+        this.sideEffects = sideEffects;
+    }
+
 
     //add to report table
 
     public Report toReport(){
         Report report = new Report();
-        List<Emotions> emotionsList = new ArrayList<>();
 
         //Setting emotions
 
@@ -216,28 +116,33 @@ public class RequestNewReport implements Serializable {
         report.setDayClassification(dayClassification);
         report.setDrug(drug);
         report.setMoodSwingClass(moodSwingClass);
-        report.setMood(moodSwing);
+
+        //Setting lists
+        report.setSideEffects(sideEffects);
+        report.setBehaviour(behaviour);
+        report.setSymptom(symptom);
 
         //setting emotions list
 
-        report.setAnticipation(anticipation);
-        report.setDisgust(disgust);
-        report.setFear(fear);
-        report.setJoy(joy);
-        report.setSadness(sadness);
-        report.setSurprise(surprise);
-        report.setTrust(trust);
-        report.setAnger(anger);
-
-        //setting symptoms list
-
-        report.setSleepy(sleepy);
-        report.setWeak(weak);
-        report.setNauseus(nauseus);
-        report.setVomit(vomit);
-        report.setLackAppetite(lackAppetite);
-        report.setHeadache(headache);
-        report.setBodyache(bodyache);
+//        report.setAnticipation(anticipation);
+//        report.setDisgust(disgust);
+//        report.setFear(fear);
+//        report.setJoy(joy);
+//        report.setSadness(sadness);
+//        report.setSurprise(surprise);
+//        report.setTrust(trust);
+//        report.setAnger(anger);
+//
+//        //setting symptoms list
+//
+//        report.setSleepy(sleepy);
+//        report.setWeak(weak);
+//        report.setNauseus(nauseus);
+//        report.setVomit(vomit);
+//        report.setLackAppetite(lackAppetite);
+//        report.setHeadache(headache);
+//        report.setBodyache(bodyache);
+//        report.setConfusionalState(confusionalState);
 
         return report;
     }

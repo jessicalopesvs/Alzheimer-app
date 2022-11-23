@@ -1,13 +1,12 @@
 package com.nci.webapp.AlzApp.controller;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nci.webapp.AlzApp.dto.FDADrugs;
 import com.nci.webapp.AlzApp.dto.RequestNewReport;
-import com.nci.webapp.AlzApp.model.MoodList;
+import com.nci.webapp.AlzApp.model.Emotions;
 import com.nci.webapp.AlzApp.model.Report;
+import com.nci.webapp.AlzApp.model.Symptoms;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
 import com.nci.webapp.AlzApp.service.NewReportService;
+import net.bytebuddy.description.modifier.SynchronizationState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 @Controller
@@ -31,11 +25,31 @@ public class ReportFormController {
     @Autowired //inject
     private ReportRepository reportRepository;
 
+    NewReportService service = new NewReportService(reportRepository);
+
+
     @GetMapping("/new")
     public String ReportForm(RequestNewReport request, Model model) {
-        HashMap<String, Integer> moods = new HashMap<>();
-        Arrays.stream(MoodList.values()).forEach(mood -> moods.put(mood.getDisplayValue(), 0));
-        model.addAttribute("moods", moods);
+
+        //setting the Emotions list field
+        HashMap<String, Integer> behaviour = new HashMap<>();
+        Arrays.stream(Emotions.values()).forEach(emotions -> behaviour.put(emotions.getDisplayValue(), 0));
+
+        System.out.println(behaviour.toString());
+
+        //setting list of Symptoms field
+        HashMap<String, Integer> symptomsList = new HashMap<>();
+        Arrays.stream(Symptoms.values()).forEach(symptom -> symptomsList.put(symptom.getDisplayValue(), 0));
+
+        System.out.println(symptomsList.toString());
+
+
+        //setting attributes
+        model.addAttribute("behaviour", behaviour);
+        model.addAttribute("symptoms", symptomsList);
+
+//        service.setEmotionsList(model);
+
         return "report/new-report";
     }
 

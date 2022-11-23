@@ -1,4 +1,4 @@
-package com.nci.webapp.AlzApp.dto;
+package com.nci.webapp.AlzApp.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
