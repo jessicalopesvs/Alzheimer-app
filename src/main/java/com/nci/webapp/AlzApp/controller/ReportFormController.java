@@ -1,13 +1,20 @@
 package com.nci.webapp.AlzApp.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nci.webapp.AlzApp.api.FDADrugs;
 import com.nci.webapp.AlzApp.dto.RequestNewReport;
 import com.nci.webapp.AlzApp.model.Emotions;
 import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.model.Symptoms;
+import com.nci.webapp.AlzApp.model.User;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
+import com.nci.webapp.AlzApp.repository.UserRepository;
 import com.nci.webapp.AlzApp.service.NewReportService;
+import com.nci.webapp.AlzApp.service.ReportService;
 import net.bytebuddy.description.modifier.SynchronizationState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +23,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 @Controller
@@ -25,7 +37,9 @@ public class ReportFormController {
     @Autowired //inject
     private ReportRepository reportRepository;
 
-    NewReportService service = new NewReportService(reportRepository);
+    @Autowired
+    private UserRepository userRepository;
+
 
 
     @GetMapping("/new")
@@ -36,8 +50,6 @@ public class ReportFormController {
         Arrays.stream(Emotions.values()).forEach(emotions -> behaviour.put(emotions.getDisplayValue(), 0));
 
         System.out.println(behaviour.toString());
-        model.addAttribute("behaviour", behaviour);
-
 
         //setting list of Symptoms field
         HashMap<String, Integer> symptomsList = new HashMap<>();
@@ -46,6 +58,7 @@ public class ReportFormController {
         System.out.println(symptomsList.toString());
 
         //setting attributes
+        model.addAttribute("behaviour", behaviour);
         model.addAttribute("symptoms", symptomsList);
 
         return "report/new-report";
@@ -53,11 +66,42 @@ public class ReportFormController {
 
     @PostMapping("/new-report")
     public String NewReport(@Valid RequestNewReport request, BindingResult result, Model model) {
-        //declare the service
-        NewReportService service = new NewReportService(reportRepository);
 
-        //calling the service
-        service.NewReport(request, result);
+        Report report = request.toReport();
+
+        //discover logged user username
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username);
+
+        // TODO: Call external API
+        String drugName = report.getDrug();
+        FDADrugs drugs;
+
+        List<String> sideEffectsList = new ArrayList<>();
+        try {
+            StringBuilder response = new StringBuilder();
+            URL url = new URL("https://api.fda.gov/drug/event.json?search=\"" + drugName + "\"");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()))) {
+                for (String line; (line = reader.readLine()) != null; ) {
+                    response.append(line);
+                }
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            drugs = mapper.readValue(response.toString(), FDADrugs.class);
+            drugs.toReactions().stream().forEach(d -> sideEffectsList.add(d));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        System.out.println(sideEffectsList.toString());
+
+//        report.setUser(user);
+        report.setSideEffects(sideEffectsList);
+
+        reportRepository.save(report);
 
         return "redirect:/table";
     }

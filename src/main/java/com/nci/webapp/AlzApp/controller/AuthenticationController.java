@@ -25,7 +25,7 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public String loginForm() {
-        return "login";
+        return "user/login";
     }
 
     @GetMapping("/register")
@@ -34,7 +34,7 @@ public class AuthenticationController {
         RequestUser user = new RequestUser();
         model.addAttribute("user", user);
 
-        return "register";
+        return "user/register";
     }
 
     //method that validates and save user
@@ -47,7 +47,7 @@ public class AuthenticationController {
         }
         if (result.hasErrors()) {
             model.addAttribute("user", user);
-            return "register";
+            return "user/register";
         }
         userService.saveUser(user);
         return "redirect:/register?success";
@@ -59,6 +59,6 @@ public class AuthenticationController {
         List<RequestUser> users = userService.findAllUsers();
 
         model.addAttribute("users", users);
-        return "users";
+        return "user/users";
     }
 }

@@ -3,6 +3,7 @@ package com.nci.webapp.AlzApp.security;
 import com.nci.webapp.AlzApp.model.Role;
 import com.nci.webapp.AlzApp.model.User;
 import com.nci.webapp.AlzApp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,15 +14,19 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+
+//*******CONFIGURATION OF THE LOGIN USER AUTHENTICATION****//
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
+    @Autowired
     private UserRepository userRepository;
 
     public void CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    //LOADING USER BY EMAIL
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);

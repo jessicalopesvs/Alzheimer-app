@@ -6,9 +6,9 @@ package com.nci.webapp.AlzApp.dto;
 import com.nci.webapp.AlzApp.model.Emotions;
 import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.model.Symptoms;
+import com.nci.webapp.AlzApp.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -51,80 +51,10 @@ public class RequestNewReport implements Serializable {
 //    private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache, confusionalState;
 
 
-
-    //GETTERS AND SETTERS
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getDrug() {
-        return drug;
-    }
-
-    public void setDrug(String drug) {
-        this.drug = drug;
-    }
-
-    public int getDayClassification() {
-        return dayClassification;
-    }
-
-    public void setDayClassification(int dayClassification) {
-        this.dayClassification = dayClassification;
-    }
-
-    public int getMoodSwingClass() {
-        return moodSwingClass;
-    }
-
-    public void setMoodSwingClass(int moodSwingClass) {
-        this.moodSwingClass = moodSwingClass;
-    }
-
-    public Emotions getMoodSwing() {
-        return moodSwing;
-    }
-
-    public void setMoodSwing(Emotions moodSwing) {
-        this.moodSwing = moodSwing;
-    }
-
-    public Map<String, Integer> getBehaviour() {
-        return behaviour;
-    }
-
-    public void setBehaviour(Map<String, Integer> behaviour) {
-        this.behaviour = behaviour;
-    }
-
-    public List<String> getSideEffects() {
-        return sideEffects;
-    }
-
-    public void setSideEffects(List<String> sideEffects) {
-        this.sideEffects = sideEffects;
-    }
-
-    public Map<String, Integer> getSymptom() {
-        return symptom;
-    }
-
-    public void setSymptom(Map<String, Integer> symptom) {
-        this.symptom = symptom;
-    }
-
-
     //add to report table
 
     public Report toReport(){
         Report report = new Report();
-
-        //Setting emotions
 
 
         //setting the data filled in the form

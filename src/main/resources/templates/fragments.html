@@ -40,8 +40,9 @@
 
         <span class="mt-3 mr-4 d-flex justify-content-between">
             <a class="text-light mr-3" href="/home">Home</a>
-            <a class="text-light mr-3" href="/report/new">New Report</a>
-            <a class="text-light mr-3" href="/report/table">Reports</a>
+            <a  sec:authorize="!isAuthenticated()" class="text-light mr-3" href="/register">New Account</a>
+            <a  sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/new">New Report</a>
+            <a  sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/table">Reports</a>
             <a class="text-light" href="/login" sec:authorize="!isAuthenticated()"> <span>login</span> </a>
             <a onclick="document.querySelector('#form-login').submit()" class="text-light" href="#"
                sec:authorize="isAuthenticated()"> <span>logout</span> </a>

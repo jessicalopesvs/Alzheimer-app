@@ -7,8 +7,11 @@ import com.nci.webapp.AlzApp.dto.RequestNewReport;
 import com.nci.webapp.AlzApp.model.Emotions;
 import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.model.Symptoms;
+import com.nci.webapp.AlzApp.model.User;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
+import com.nci.webapp.AlzApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,43 +33,48 @@ public class NewReportService {
     @Autowired //inject
     private ReportRepository reportRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public NewReportService(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
 
-
-    public void NewReport (@Valid RequestNewReport request, BindingResult result){
-        Report report = request.toReport();
-
-        // TODO: Call external API
-        String drugName = report.getDrug();
-        FDADrugs drugs;
-
-        List<String> sideEffectsList = new ArrayList<>();
-        try {
-            StringBuilder response = new StringBuilder();
-            URL url = new URL("https://api.fda.gov/drug/event.json?search=\"" + drugName + "\"");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()))) {
-                for (String line; (line = reader.readLine()) != null; ) {
-                    response.append(line);
-                }
-            }
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-            drugs = mapper.readValue(response.toString(), FDADrugs.class);
-            drugs.toReactions().stream().forEach(d -> sideEffectsList.add(d));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(sideEffectsList.toString());
-        report.setSideEffects(sideEffectsList);
-
-        reportRepository.save(report);
-    }
+//    public void NewReport (@Valid RequestNewReport request, BindingResult result){
+//
+//        Report report = request.toReport();
+//
+//
+//        // TODO: Call external API
+//        String drugName = report.getDrug();
+//        FDADrugs drugs;
+//
+//        List<String> sideEffectsList = new ArrayList<>();
+//        try {
+//            StringBuilder response = new StringBuilder();
+//            URL url = new URL("https://api.fda.gov/drug/event.json?search=\"" + drugName + "\"");
+//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//            conn.setRequestMethod("GET");
+//            try (BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(conn.getInputStream()))) {
+//                for (String line; (line = reader.readLine()) != null; ) {
+//                    response.append(line);
+//                }
+//            }
+//            ObjectMapper mapper = new ObjectMapper();
+//            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+//            drugs = mapper.readValue(response.toString(), FDADrugs.class);
+//            drugs.toReactions().stream().forEach(d -> sideEffectsList.add(d));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(sideEffectsList.toString());
+//        report.setUser(user);
+//        report.setSideEffects(sideEffectsList);
+//
+//        reportRepository.save(report);
+//    }
 
 
     public Model maps (Model model){

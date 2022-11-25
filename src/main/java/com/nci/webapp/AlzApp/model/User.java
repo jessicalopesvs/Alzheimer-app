@@ -17,11 +17,10 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id
+    private String username;
     private String fName;
     private String lName;
-    private String username;
     private String password;
     @Transient
     private Boolean enabled;
@@ -36,7 +35,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
-            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "username") },
             inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") }
     )
     private List<Role> roles = new ArrayList<>();
