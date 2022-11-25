@@ -10,9 +10,6 @@ import com.nci.webapp.AlzApp.model.Symptoms;
 import com.nci.webapp.AlzApp.model.User;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
 import com.nci.webapp.AlzApp.repository.UserRepository;
-import com.nci.webapp.AlzApp.service.NewReportService;
-import com.nci.webapp.AlzApp.service.ReportService;
-import net.bytebuddy.description.modifier.SynchronizationState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -28,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -66,12 +64,13 @@ public class ReportFormController {
 
     @PostMapping("/new-report")
     public String NewReport(@Valid RequestNewReport request, BindingResult result, Model model) {
-
-        Report report = request.toReport();
-
         //discover logged user username
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(username);
+
+        //Getting the report inputs
+        Report report = request.toReport();
+
 
         // TODO: Call external API
         String drugName = report.getDrug();
@@ -98,7 +97,7 @@ public class ReportFormController {
         }
 //        System.out.println(sideEffectsList.toString());
 
-//        report.setUser(user);
+        report.setUser(user);
         report.setSideEffects(sideEffectsList);
 
         reportRepository.save(report);
@@ -107,9 +106,9 @@ public class ReportFormController {
     }
 
     @GetMapping("/table")
-    public String table(Model model) {
+    public String table(Model model, Principal principal) {
 
-        List<Report> reports = reportRepository.findAll();
+        List<Report> reports = reportRepository.findAllByUser(principal.getName());
         model.addAttribute("reports", reports);
 
         return "report/table";

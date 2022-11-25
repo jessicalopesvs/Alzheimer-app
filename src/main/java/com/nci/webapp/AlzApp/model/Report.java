@@ -11,12 +11,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter  @Setter //<<---- seting getters and setter via lombock
+@AllArgsConstructor  @NoArgsConstructor //<<---- seting constructor via lombock
 @Entity
 public class Report implements Serializable {
+
+    //Variables
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -42,7 +42,7 @@ public class Report implements Serializable {
 
 
     @JsonIgnore
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.LAZY)
     private User user;
 
 

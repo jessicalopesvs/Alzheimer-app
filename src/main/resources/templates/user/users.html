@@ -22,8 +22,8 @@
         <tbody>
         <!--/*@thymesVar id="users" type="com"*/-->
         <tr th:each = "user : ${users}">
-            <td th:text = "${user.fName}"></td>
-            <td th:text = "${user.lName}"></td>
+            <td th:text = "${user.fname}"></td>
+            <td th:text = "${user.lname}"></td>
             <td th:text = "${user.email}"></td>
         </tr>
         </tbody>

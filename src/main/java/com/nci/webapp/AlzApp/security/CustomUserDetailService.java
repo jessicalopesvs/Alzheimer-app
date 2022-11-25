@@ -28,11 +28,11 @@ public class CustomUserDetailService implements UserDetailsService {
 
     //LOADING USER BY EMAIL
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
 
         if (user != null) {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(),
+            return new org.springframework.security.core.userdetails.User(user.getUsername(),
                     user.getPassword(),
                     mapRolesToAuthorities(user.getRoles()));
         }else{
@@ -40,6 +40,7 @@ public class CustomUserDetailService implements UserDetailsService {
         }
     }
 
+    //map the roles to set authorizations
     private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
         Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
@@ -48,3 +49,5 @@ public class CustomUserDetailService implements UserDetailsService {
     }
 
 }
+
+//Spring security auto-password -> 8c7775ae-0d44-4b43-826c-7bd9ff0c0426

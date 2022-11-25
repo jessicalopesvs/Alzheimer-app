@@ -26,13 +26,6 @@ public class ReportController {
     @Autowired
     private ReportService service;
 
-//
-//    @GetMapping
-//    public String dashboard(RequestNewReport request, Model model) {
-//
-//
-//        return "/report/dashboard";
-//    }
 
     @GetMapping
     public String moodChart(Model model) {

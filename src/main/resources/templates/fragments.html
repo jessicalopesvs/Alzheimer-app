@@ -4,46 +4,125 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
-<style>
 
-    .logo-container {
-        background-color: rgba(81, 64, 236, 0.99);
-        color: #FFF;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@100;400;500;600&family=Montserrat:wght@100;400;600&display=swap"
+          rel="stylesheet">
+    <link href="style/cover.css" rel="stylesheet">
 
-    .logo {
-        /*font-family: 'Handlee', cursive;*/
-        font-size: 2.5rem;
-    }
+    <style>
 
-    h1 {
-        margin: 2rem;
-        text-align: center;
-    }
+        .logo-container {
+            background-color: rgba(81, 64, 236, 0.99);
+            color: #FFF;
+        }
 
-    .thead-hover{
-        pointer-events: none;
-    }
+        .logo {
+            font-family: 'Bitter', serif;
+            font-size: 2.5rem;
+        }
+
+        h1 {
+            margin: 2rem;
+            text-align: center;
+        }
+
+        .thead-hover {
+            pointer-events: none;
+        }
+
+        p {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .navbar {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sethover:not(.nohover):hover {
+            border: 1px solid red;
+        }
+
+        .logo:link {
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            text-decoration: none;
+        }
 
 
-</style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+    </style>
 </head>
 
 
 <!--MENU TOP-->
 
 <div th:fragment="logo" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <div class="row logo-container mb-5 p-2 d-flex justify-content-between shadow-lg"
+    <div class="navbar row logo-container mb-5 p-2 d-flex justify-content-between shadow-lg"
          xmlns:sec="http://www.w3.org/1999/xhtml">
 
-        <span class="logo ml-4">AlzApp</span>
+        <span class="ml-4"> <a class=" logo text-light mr-3" href="/home">AlzApp</a></span>
 
         <span class="mt-3 mr-4 d-flex justify-content-between">
             <a class="text-light mr-3" href="/home">Home</a>
-            <a  sec:authorize="!isAuthenticated()" class="text-light mr-3" href="/register">New Account</a>
-            <a  sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/new">New Report</a>
-            <a  sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/table">Reports</a>
-            <a class="text-light" href="/login" sec:authorize="!isAuthenticated()"> <span>login</span> </a>
+            <a sec:authorize="!isAuthenticated()" class="text-light mr-3" href="/register">New Account</a>
+            <a sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/new">New Report</a>
+            <a sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/table">Reports</a>
+            <a class="text-light" href="/login" sec:authorize="!isAuthenticated()">
+                <span>login</span> </a>
             <a onclick="document.querySelector('#form-login').submit()" class="text-light" href="#"
                sec:authorize="isAuthenticated()"> <span>logout</span> </a>
             <form id="form-login" th:action="@{/logout}" method="post"></form>
