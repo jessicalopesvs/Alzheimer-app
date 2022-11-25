@@ -22,8 +22,7 @@ public class User {
     private String fName;
     private String lName;
     private String password;
-    @Transient
-    private Boolean enabled;
+    private Boolean enabled = true;
 
 
     @Column(nullable = false, unique = true)

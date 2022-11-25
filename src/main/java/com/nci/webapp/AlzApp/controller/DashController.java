@@ -1,36 +1,30 @@
 package com.nci.webapp.AlzApp.controller;
 
-import com.nci.webapp.AlzApp.dto.RequestNewReport;
-import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
-import com.nci.webapp.AlzApp.service.ReportService;
+import com.nci.webapp.AlzApp.service.DashService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/report/dashboard")
-public class ReportController {
+public class DashController {
 
     @Autowired //inject
     private ReportRepository reportRepository;
 
     @Autowired
-    private ReportService service;
+    private DashService service;
 
 
     @GetMapping
-    public String moodChart(Model model) {
+    public String moodChart(Model model, Principal principal) {
 
-        service.moodChart(model);
+        service.moodChart(model, principal);
 
         return "/report/dashboard";
     }

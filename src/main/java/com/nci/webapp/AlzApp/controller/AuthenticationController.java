@@ -49,6 +49,7 @@ public class AuthenticationController {
             model.addAttribute("user", user);
             return "user/register";
         }
+        user.setEnabled(true);
         userService.saveUser(user);
         return "redirect:/register?success";
     }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,18 +14,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ReportService {
+public class DashService {
 
     @Autowired //inject
     private ReportRepository repository;
 
-    public Model moodChart(Model model) {
+    public Model moodChart(Model model, Principal principal) {
 
         List<Date> date = repository.findAll().stream().map(x -> x.getDate()).collect(Collectors.toList());
 
         String fristDate = date.get(0).toString();
 
-        List<Report> reports = repository.findAll();
+        List<Report> reports = repository.findAllByUser(principal.getName());
 
         Map<Date, Integer> anger = new LinkedHashMap<>();
         for (Report r : reports) {

@@ -40,98 +40,98 @@
 
             </div>
 
+            <h4>Emotions na mão</h4>
+            <label>How to you classify the patient's emotions throughout the day?</label></br>
+            <small> Measuring intensity: 0 to 5, being 0 some kind of emotion and 5 an intence emotion</small></br>
+            <div class="container mt-3">
+                <div class="row">
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Trust </label> <span id="rangeval2" class="rangeval">0<!-- Default value --></span>
+                        </div>
+                        <input th:field="*{trust}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval2').html($(this).val())">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Disgust </label> <span id="rangeval3" class="rangeval">0<!-- Default value --></span>
+                        </div>
+                        <input th:field="*{disgust}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval3').html($(this).val())">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Fear</label><span id="rangeval4" class="rangeval">0<!-- Default value --></span>
+                        </div>
+                        <input th:field="*{fear}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval4').html($(this).val())">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Sadness</label> <span id="rangeval5" class="rangeval">0<!-- Default value --></span>
+                        </div>
+                        <input th:field="*{sadness}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval5').html($(this).val())">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Anticipation </label><span id="rangeval6" class="rangeval">0<!-- Default value --></span>
+                        </div>
+                        <input th:field="*{anticipation}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval6').html($(this).val())">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Joy </label> <span id="rangeval7" class="rangeval">0<!-- Default value --></span>
+                        </div>
+                        <input th:field="*{joy}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval7').html($(this).val())">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Surprise </label><span id="rangeval8" class="rangeval">0<!-- Default value --></span>
+                        </div>
+                        <input th:field="*{surprise}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval8').html($(this).val())">
+                    </div>
+
+                    <div class="form-group col-3">
+                        <div class="d-flex justify-content-between">
+                        <label>Anger</label><span id="rangeval9" class="rangeval">0<!-- Default value --></span>
+                        </div>
+
+                        <input th:field="*{anger}" type="range" class="range-slider" min="0" max="5" step="1"
+                               onInput="$('#rangeval9').html($(this).val())">
+
+                    </div>
+
+                </div>
+
+            </div>
+
 <!--            <h4>Emotions</h4>-->
 <!--            <label>How to you classify the patient's emotions throughout the day?</label></br>-->
 <!--            <small> Measuring intensity: 0 to 5, being 0 some kind of emotion and 5 an intence emotion</small></br>-->
 <!--            <div class="container mt-3">-->
 <!--                <div class="row">-->
-<!--                    <div class="form-group col-3">-->
+<!--                    &lt;!&ndash;/*@thymesVar id="behaviour" type="com"*/&ndash;&gt;-->
+<!--                    <div class="form-group col-3" th:each="p : ${behaviour}">-->
 <!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Trust </label> <span id="rangeval2" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
-<!--                        </div>-->
-<!--                        <input th:field="*{trust}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval2').html($(this).val())">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group col-3">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Disgust </label> <span id="rangeval3" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
-<!--                        </div>-->
-<!--                        <input th:field="*{disgust}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval3').html($(this).val())">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group col-3">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Fear</label><span id="rangeval4" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
-<!--                        </div>-->
-<!--                        <input th:field="*{fear}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval4').html($(this).val())">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group col-3">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Sadness</label> <span id="rangeval5" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
-<!--                        </div>-->
-<!--                        <input th:field="*{sadness}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval5').html($(this).val())">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group col-3">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Anticipation </label><span id="rangeval6" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
-<!--                        </div>-->
-<!--                        <input th:field="*{anticipation}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval6').html($(this).val())">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group col-3">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Joy </label> <span id="rangeval7" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
-<!--                        </div>-->
-<!--                        <input th:field="*{joy}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval7').html($(this).val())">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group col-3">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Surprise </label><span id="rangeval8" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
-<!--                        </div>-->
-<!--                        <input th:field="*{surprise}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval8').html($(this).val())">-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group col-3">-->
-<!--                        <div class="d-flex justify-content-between">-->
-<!--                        <label>Anger</label><span id="rangeval9" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
+<!--                            &lt;!&ndash;/*@thymesVar id="key" type="com"*/&ndash;&gt;-->
+<!--                            <label th:text="${p.key}">Somnolence</label><span id="rangevalA" class="rangeval">0&lt;!&ndash; Default value &ndash;&gt;</span>-->
 <!--                        </div>-->
 
-<!--                        <input th:field="*{anger}" type="range" class="range-slider" min="0" max="5" step="1"-->
-<!--                               onInput="$('#rangeval9').html($(this).val())">-->
-
+<!--                        <input th:field="*{behaviour['__${p.key}__']}" type="range" class="range-slider" min="0" max="5" step="1"-->
+<!--                               onInput="$('#rangevalA').html($(this).val())">-->
 <!--                    </div>-->
-
 <!--                </div>-->
-
 <!--            </div>-->
-
-            <h4>Emotions</h4>
-            <label>How to you classify the patient's emotions throughout the day?</label></br>
-            <small> Measuring intensity: 0 to 5, being 0 some kind of emotion and 5 an intence emotion</small></br>
-            <div class="container mt-3">
-                <div class="row">
-                    <!--/*@thymesVar id="behaviour" type="com"*/-->
-                    <div class="form-group col-3" th:each="p : ${behaviour}">
-                        <div class="d-flex justify-content-between">
-                            <!--/*@thymesVar id="key" type="com"*/-->
-                            <label th:text="${p.key}">Somnolence</label><span id="rangevalA" class="rangeval">0<!-- Default value --></span>
-                        </div>
-
-                        <input th:field="*{behaviour['__${p.key}__']}" type="range" class="range-slider" min="0" max="5" step="1"
-                               onInput="$('#rangevalA').html($(this).val())">
-                    </div>
-                </div>
-            </div>
 
             <h4 color="red">TESTE</h4>
             <label>How to you classify the patient's emotions throughout the day?</label></br>

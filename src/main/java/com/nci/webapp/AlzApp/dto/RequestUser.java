@@ -27,4 +27,6 @@ public class RequestUser {
     @Email
     private String email;
 
+    private Boolean enabled = true;
+
 }
