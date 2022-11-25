@@ -30,15 +30,15 @@
                 <input th:field="*{drug}" class="form-control" th:errorclass="is-invalid" placeholder="medicine name"/>
             </div>
 
-<!--            <h2>Behavior</h2>-->
-<!--            <div class="form-group">-->
-<!--                <label>How do you classify the day?</label></br>-->
-<!--                <small>0 for hard 5 for easy</small>-->
-<!--                <input th:field="*{dayClassification}" type="range" class="form-range" min="0" max="5" step="1"-->
-<!--                       onInput="$('#rangeval1').html($(this).val())">-->
-<!--                <span id="rangeval1">5&lt;!&ndash; Default value &ndash;&gt;</span>-->
+            <h2>Behavior</h2>
+            <div class="form-group">
+                <label>How do you classify the day?</label></br>
+                <small>0 for hard 5 for easy</small>
+                <input th:field="*{dayClassification}" type="range" class="form-range" min="0" max="5" step="1"
+                       onInput="$('#rangeval1').html($(this).val())">
+                <span id="rangeval1">5<!-- Default value --></span>
 
-<!--            </div>-->
+            </div>
 
 <!--            <h4>Emotions</h4>-->
 <!--            <label>How to you classify the patient's emotions throughout the day?</label></br>-->
@@ -133,12 +133,12 @@
                 </div>
             </div>
 
-            <h4>TESTE</h4>
+            <h4 color="red">TESTE</h4>
             <label>How to you classify the patient's emotions throughout the day?</label></br>
             <small> Measuring intensity: 0 to 5, being 0 some kind of emotion and 5 an intence emotion</small></br>
             <div class="container mt-3">
                 <div class="row">
-                    <!--/*@thymesVar id="symptoms" type="com"*/-->
+                    <!--/*@thymesVar id="behaviour" type="com"*/-->
                     <div class="form-group col-3" th:each="p : ${symptoms}">
                         <div class="d-flex justify-content-between">
                             <!--/*@thymesVar id="key" type="com"*/-->
@@ -150,6 +150,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 <!--            <h4>Symptoms</h4>-->

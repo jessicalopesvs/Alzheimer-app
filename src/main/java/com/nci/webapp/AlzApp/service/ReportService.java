@@ -79,6 +79,11 @@ public class ReportService {
         return model;
     }
 
+    public Model chartMap(Model model){
+        List<Report> reports = repository.findAll();
+
+         return model;
+    }
 
 
 }

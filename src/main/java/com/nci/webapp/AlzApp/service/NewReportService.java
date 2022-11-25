@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nci.webapp.AlzApp.api.FDADrugs;
 import com.nci.webapp.AlzApp.dto.RequestNewReport;
+import com.nci.webapp.AlzApp.model.Emotions;
 import com.nci.webapp.AlzApp.model.Report;
+import com.nci.webapp.AlzApp.model.Symptoms;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.Valid;
@@ -17,6 +20,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -64,7 +69,26 @@ public class NewReportService {
     }
 
 
+    public Model maps (Model model){
+        //setting the Emotions list field
+        HashMap<String, Integer> behaviour = new HashMap<>();
+        Arrays.stream(Emotions.values()).forEach(emotions -> behaviour.put(emotions.getDisplayValue(), 0));
 
+        System.out.println(behaviour.toString());
+        model.addAttribute("behaviour", behaviour);
+
+
+        //setting list of Symptoms field
+        HashMap<String, Integer> symptoms = new HashMap<>();
+        Arrays.stream(Symptoms.values()).forEach(symptom -> symptoms.put(symptom.getDisplayValue(), 0));
+
+        System.out.println(symptoms.toString());
+
+        //setting attributes
+        model.addAttribute("symptoms", symptoms);
+        return model;
+
+    }
 
 
     public List<Report> getAllReports(){

@@ -5,11 +5,19 @@ package com.nci.webapp.AlzApp.dto;
 
 import com.nci.webapp.AlzApp.model.Emotions;
 import com.nci.webapp.AlzApp.model.Report;
+import com.nci.webapp.AlzApp.model.Symptoms;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class RequestNewReport implements Serializable {
 
     @DateTimeFormat(pattern = "yyy-MM-dd")
@@ -20,9 +28,17 @@ public class RequestNewReport implements Serializable {
     private Emotions moodSwing;
 
     //Lists
-    private Map<String,Integer> symptom= new HashMap<>();
+
+
     private Map<String,Integer> behaviour = new HashMap<>();
     private List<String> sideEffects = new ArrayList<>();
+    private Map<String,Integer> symptom= new HashMap<>();
+
+    public RequestNewReport() {
+        symptom = new HashMap<>();
+        Arrays.stream(Symptoms.values()).forEach(s -> symptom.put(s.getDisplayValue(), 0));
+
+    }
 
 
     //emotions
@@ -78,14 +94,6 @@ public class RequestNewReport implements Serializable {
         this.moodSwing = moodSwing;
     }
 
-    public Map<String, Integer> getSymptom() {
-        return symptom;
-    }
-
-    public void setSymptom(Map<String, Integer> symptom) {
-        this.symptom = symptom;
-    }
-
     public Map<String, Integer> getBehaviour() {
         return behaviour;
     }
@@ -100,6 +108,14 @@ public class RequestNewReport implements Serializable {
 
     public void setSideEffects(List<String> sideEffects) {
         this.sideEffects = sideEffects;
+    }
+
+    public Map<String, Integer> getSymptom() {
+        return symptom;
+    }
+
+    public void setSymptom(Map<String, Integer> symptom) {
+        this.symptom = symptom;
     }
 
 

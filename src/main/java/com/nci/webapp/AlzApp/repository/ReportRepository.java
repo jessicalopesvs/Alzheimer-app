@@ -16,4 +16,5 @@ public interface ReportRepository extends JpaRepository<Report,Long> {
     List<Report> findAllByUser (@Param("username") String username);
 
 
+
 }

@@ -36,6 +36,8 @@ public class ReportFormController {
         Arrays.stream(Emotions.values()).forEach(emotions -> behaviour.put(emotions.getDisplayValue(), 0));
 
         System.out.println(behaviour.toString());
+        model.addAttribute("behaviour", behaviour);
+
 
         //setting list of Symptoms field
         HashMap<String, Integer> symptomsList = new HashMap<>();
@@ -43,12 +45,8 @@ public class ReportFormController {
 
         System.out.println(symptomsList.toString());
 
-
         //setting attributes
-        model.addAttribute("behaviour", behaviour);
         model.addAttribute("symptoms", symptomsList);
-
-//        service.setEmotionsList(model);
 
         return "report/new-report";
     }
