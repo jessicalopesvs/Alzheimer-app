@@ -28,7 +28,6 @@ public class UserController {
 
 
     //criar método para retornar a view
-    @GetMapping("pedido")
     public String Home (Model model, Principal principal){
 
         //add na lista

@@ -9,10 +9,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter  @Setter //<<---- seting getters and setter via lombock
+@AllArgsConstructor  @NoArgsConstructor //<<---- seting constructor via lombock
 @Entity
 @Table(name = "roles")
 public class Role {

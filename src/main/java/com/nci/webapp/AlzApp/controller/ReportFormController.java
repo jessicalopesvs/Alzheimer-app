@@ -38,8 +38,6 @@ public class ReportFormController {
     @Autowired
     private UserRepository userRepository;
 
-
-
     @GetMapping("/new")
     public String ReportForm(RequestNewReport request, Model model) {
 
@@ -47,17 +45,17 @@ public class ReportFormController {
         HashMap<String, Integer> behaviour = new HashMap<>();
         Arrays.stream(Emotions.values()).forEach(emotions -> behaviour.put(emotions.getDisplayValue(), 0));
 
-        System.out.println(behaviour.toString());
+//        System.out.println(behaviour.toString());
 
         //setting list of Symptoms field
-        HashMap<String, Integer> symptomsList = new HashMap<>();
-        Arrays.stream(Symptoms.values()).forEach(symptom -> symptomsList.put(symptom.getDisplayValue(), 0));
+        HashMap<String, Integer> symptom = new HashMap<>();
+        Arrays.stream(Symptoms.values()).forEach(s -> symptom.put(s.getDisplayValue(), 0));
 
-        System.out.println(symptomsList.toString());
+        System.out.println(symptom.toString());
 
         //setting attributes
         model.addAttribute("behaviour", behaviour);
-        model.addAttribute("symptoms", symptomsList);
+        model.addAttribute("symptom", symptom);
 
         return "report/new-report";
     }

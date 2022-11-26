@@ -29,7 +29,6 @@ public class RequestNewReport implements Serializable {
 
     //Lists
 
-
     private Map<String,Integer> behaviour = new HashMap<>();
     private List<String> sideEffects = new ArrayList<>();
     private Map<String,Integer> symptom= new HashMap<>();

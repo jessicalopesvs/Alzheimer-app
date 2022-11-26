@@ -34,14 +34,14 @@ public class CustomUserDetailService implements UserDetailsService {
         if (user != null) {
             return new org.springframework.security.core.userdetails.User(user.getUsername(),
                     user.getPassword(),
-                    mapRolesToAuthorities(user.getRoles()));
+                    mapRolesAuthorities(user.getRoles()));
         }else{
             throw new UsernameNotFoundException("Invalid username or password.");
         }
     }
 
     //map the roles to set authorizations
-    private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
+    private Collection < ? extends GrantedAuthority> mapRolesAuthorities(Collection <Role> roles) {
         Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
@@ -51,3 +51,4 @@ public class CustomUserDetailService implements UserDetailsService {
 }
 
 //Spring security auto-password -> 8c7775ae-0d44-4b43-826c-7bd9ff0c0426
+//Based on: https://www.javaguides.net/2018/10/user-registration-module-using-springboot-springmvc-springsecurity-hibernate5-thymeleaf-mysql.html

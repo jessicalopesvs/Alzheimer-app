@@ -2,6 +2,8 @@ package com.nci.webapp.AlzApp.model;
 
 import java.util.stream.Stream;
 
+
+
 public enum Symptoms {
 
     SOMNOLENCE("Somnolence"),
@@ -11,7 +13,7 @@ public enum Symptoms {
     APPETITE("Appetite"),
     HEADACHE("Headache"),
     BODYACHE("Bodyache"),
-    CONFUSIONAL_STATE("Confusional state");
+    CONFUSIONAL_STATE("Confusional_state");
 
 
     private final String displayValue;

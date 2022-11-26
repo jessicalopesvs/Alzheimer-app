@@ -1,0 +1,39 @@
+.logo-container {
+    background-color: rgba(81, 64, 236, 0.99);
+    color: #FFF;
+}
+
+.logo {
+    font-family: 'Bitter', serif;
+    font-size: 2.5rem;
+}
+
+h1 {
+    margin: 2rem;
+    text-align: center;
+}
+
+.thead-hover {
+    pointer-events: none;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sethover:not(.nohover):hover {
+    border: 1px solid red;
+}
+
+.logo:link {
+    text-decoration: none;
+}
+
+.logo:hover {
+    text-decoration: none;
+}
+

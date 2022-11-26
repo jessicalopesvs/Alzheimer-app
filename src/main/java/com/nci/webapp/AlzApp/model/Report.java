@@ -1,5 +1,6 @@
 package com.nci.webapp.AlzApp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,21 +41,10 @@ public class Report implements Serializable {
     @ElementCollection
     private Map<String,Integer> symptom= new HashMap<>();
 
-
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne (fetch = FetchType.LAZY)
     private User user;
 
-
-//    List<Behavior> behaviors;
-
-//    @entity
-//    class Behavior
-//    String name;
-//    int classification;
-//    enum type; // Emotion, Symptom
-
-//    getBehaviors -> filter by type == Emotion
 
     //emotions
 
@@ -64,6 +54,16 @@ public class Report implements Serializable {
     //symptoms
 
     private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache, confusionalState;
+
+    //    List<Behavior> behaviors;
+
+//    @entity
+//    class Behavior
+//    String name;
+//    int classification;
+//    enum type; // Emotion, Symptom
+
+//    getBehaviors -> filter by type == Emotion
 
 
 }

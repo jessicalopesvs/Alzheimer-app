@@ -23,8 +23,57 @@
     </div>
 
 
-
 </div>
+
+<div class="container">
+<div>
+    <canvas id="myChart"></canvas>
+</div></div>
+
+<script onload="fetchData()" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<button onclick="fetchData()">fetch</button>
+
+<script>
+    //fetch function
+    async function fetchData(){
+        const url = 'http://localhost:8080/api/reports/user-report.json';
+        const response = await fetch(url);
+        //wait ultil the request has been completed
+        const dataPoints = await response.json();
+        console.log(dataPoints);
+
+        return dataPoints;
+    };
+
+    fetchData().then(dataPoints => {
+        const beh = dataPoints[0].reports[0].map(function(index){
+            return index.behavior;
+        })
+        console.log(beh);
+    });
+
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 
 
 <script th:inline="javascript">

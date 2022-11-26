@@ -9,7 +9,7 @@ public class AlzAppApplication {
 
 	public void addViewController(ViewControllerRegistry registry)
 	{
-		registry.addViewController("/index").setViewName("index");
+		registry.addViewController("/").setViewName("forward:/home.html");
 	}
 
 	public static void main(String[] args) {
