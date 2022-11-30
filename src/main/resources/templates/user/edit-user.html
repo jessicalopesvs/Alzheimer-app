@@ -10,18 +10,19 @@
 
 
 <div th:replace="~{fragments :: logo}"></div>
-<div class="container mt-4">
+<div class="container">
 
             <div class="card-header">
-                <h2 class="text-center">New user</h2>
+                <h2 class="text-center">Alter user data</h2>
             </div>
             <div th:if="${param.success}">
                 <div class="alert alert-info">
-                    Registration concluded! <a th:href="@{/login}">Click here to login</a>
+                    Registration concluded!</a>
                 </div>
             </div>
             <div class="card-body">
                 <!--/*@thymesVar id="user" type="com"*/-->
+
                 <form
                         method="post"
                         role="form"
@@ -29,16 +30,12 @@
                         th:object="${user}"
                 >
 
+                <input type="hidden" name="id" value="${username}">
+
 
                     <div class="form-group mb-3">
                         <label class="form-label">Username</label>
-                        <input
-                                class="form-control"
 
-                                placeholder="Enter chosen username"
-                                th:field="*{username}"
-                                type="text"
-                        />
 <!--                        <p th:errors = "*{fName}" class="text-danger"-->
 <!--                           th:if="${#fields.hasErrors('fName')}"></p>-->
                     </div>
@@ -51,6 +48,7 @@
                                 placeholder="Enter first name"
                                 th:field="*{fName}"
                                 type="text"
+                                th:value="${fName}"
                         />
                         <p th:errors = "*{fName}" class="text-danger"
                            th:if="${#fields.hasErrors('fName')}"></p>
@@ -107,9 +105,6 @@
 
 
     </div>
-</div>
-<div class="container-fluid fixed-bottom">
-    <footer th:replace="~{fragments :: footer}"></footer>
 </div>
 </body>
 </html>

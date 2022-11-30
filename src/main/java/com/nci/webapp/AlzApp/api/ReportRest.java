@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,10 +23,25 @@ public class ReportRest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ReportRepository reportRepository;
+
     @GetMapping("user-report.json")
     public List<User> getReports(Principal principal){
+
         String username = "user";
-        Sort sort = Sort.by("id").ascending();
+        Sort sort = Sort.by("date").ascending();
+
         return userRepository.findAll();
+    }
+
+    @GetMapping ("report.json")
+    public List<Report> getReport(Principal principal){
+
+        List<Report> reports = reportRepository.findAllByUser(principal.getName());
+
+        Sort sort = Sort.by("date").ascending();
+
+        return reportRepository.findAll();
     }
 }

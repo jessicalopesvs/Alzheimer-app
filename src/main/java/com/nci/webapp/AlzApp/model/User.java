@@ -33,6 +33,7 @@ public class User {
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("date")
     private List<Report> reports;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

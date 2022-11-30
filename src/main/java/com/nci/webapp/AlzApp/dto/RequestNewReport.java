@@ -20,7 +20,7 @@ import java.util.*;
 @AllArgsConstructor
 public class RequestNewReport implements Serializable {
 
-    @DateTimeFormat(pattern = "yyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private String drug;
     private int dayClassification;

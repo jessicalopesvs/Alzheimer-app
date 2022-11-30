@@ -21,7 +21,8 @@ public class Report implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @DateTimeFormat(pattern = "yyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private Date date;
     private String drug;
     private int dayClassification;

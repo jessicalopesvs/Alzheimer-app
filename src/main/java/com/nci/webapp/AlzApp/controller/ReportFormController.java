@@ -51,7 +51,7 @@ public class ReportFormController {
         HashMap<String, Integer> symptom = new HashMap<>();
         Arrays.stream(Symptoms.values()).forEach(s -> symptom.put(s.getDisplayValue(), 0));
 
-        System.out.println(symptom.toString());
+//        System.out.println(symptom.toString());
 
         //setting attributes
         model.addAttribute("behaviour", behaviour);
@@ -68,7 +68,6 @@ public class ReportFormController {
 
         //Getting the report inputs
         Report report = request.toReport();
-
 
         // TODO: Call external API
         String drugName = report.getDrug();
@@ -100,7 +99,7 @@ public class ReportFormController {
 
         reportRepository.save(report);
 
-        return "redirect:/table";
+        return "redirect:/report/table";
     }
 
     @GetMapping("/table")

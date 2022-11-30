@@ -12,270 +12,165 @@
 <div th:replace="~{fragments :: logo}"></div>
 
 <div><h1>Report</h1></div>
-<div class="container">
+<div class="flex-container">
 
 
-    <div class="d-flex p-2 flex-row justify-content-around">
-            <div id="first" style="width: 750px; height: 600px; margin: 0 auto"></div>
-            <div id="second" style="width: 750px; height: 600px; margin: 0 auto"></div>
-             <div > test</div>
+    <div class="row justify-content-center">
+
+        <div class="col-md-4  col-sm-12 dash-canva "> <h3 class="chart-title">Behaviour</h3> <canvas id="behaviourChart"></canvas>
+        </div>
+        <div class="col-md-4 col-sm-12 dash-canva "><h3 class="chart-title">Sympyoms</h3> <canvas id="symptomsChart"> </canvas></div>
+
+    </div>
+    <div class="row justify-content-center">
+
+        <div class="col-md-4 col-sm-12 dash-canva bg-tester"> <h3 class="chart-title">Day Rating</h3></div>
+        <div class="col-md-4 col-sm-12 dash-canva bg-tester"> <h3 class="chart-title">Side Effects</h3>test</div>
 
     </div>
 
 
 </div>
 
-<div class="container">
-<div>
-    <canvas id="myChart"></canvas>
-</div></div>
-
 <script onload="fetchData()" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<button onclick="fetchData()">fetch</button>
 
 <script>
     //fetch function
     async function fetchData(){
         const url = 'http://localhost:8080/api/reports/user-report.json';
         const response = await fetch(url);
-        //wait ultil the request has been completed
+        //wait until the request has been completed
         const dataPoints = await response.json();
         console.log(dataPoints);
-
         return dataPoints;
     };
 
     fetchData().then(dataPoints => {
-        const beh = dataPoints[0].reports[0].map(function(index){
-            return index.behavior;
-        })
-        console.log(beh);
+        // get user data, in this case I'm assuming we are filtering for a single user
+        const user = dataPoints[0];
+
+        // the labels are going to be date
+        const labels = user.reports.map(function(value) {
+            const dt = new Date(value.date);
+            return dt.toLocaleDateString();
+        });
+
+
+
+        // this can just be replicated for symptoms
+        const behaviours = ['Anger','Fear','Trust','Disgust','Sadness','Anticipation','Joy','Surprise'];
+        const datasets = behaviours.map(function(behaviourName){
+            const data = user.reports.map(function(value){
+                return value.behaviour[behaviourName];
+            });
+            return {
+                label: behaviourName,
+                data: data,
+                borderWidth: 1
+            };
+        });
+
+
+        //joining date and behaivoural date
+        const allBehaviourData = [];
+        for (let i=0; i <labels.length; ++i){
+            allBehaviourData.push({
+                labelX: labels[i],//date
+                dataY: datasets[i]//data
+                });
+        }
+
+        allBehaviourData.sort((a,b) => a.labelX - b.labelX);
+
+        const sortBehaviourDate = allBehaviourData.map(e => e.labelX);
+        const sortedBehaviour = allBehaviourData.map(e => e.dataY);
+
+        //generating behaviour chart
+        behaviourChart.config.data.labels = sortBehaviourDate;
+        behaviourChart.config.data.datasets = sortedBehaviour;
+        behaviourChart.update();
+
+        //SYMPTOMS CHART//
+
+
+        const symptoms = ['Appetite','Nauseus','Headache','Somnolence','Weakness','Bodyache','Confusional state','Vomit'];
+        const sympDatasets = symptoms.map(function(symptomName){
+            const sympData = user.reports.map(function(value){
+                return value.symptom[symptomName];
+            });
+            return {
+                label: symptomName,
+                data: sympData,
+                borderWidth: 1
+            };
+        });
+
+
+        //joining date and behaivoural date
+        const allSymptomData = [];
+        for (let i=0; i <labels.length; ++i){
+            allSymptomData.push({
+                labelX: labels[i],//date
+                dataY: sympDatasets[i]//data
+            });
+        }
+
+        allSymptomData.sort((a,b) => a.labelX - b.labelX);
+
+        const sortSymptomDate = allSymptomData.map(e => e.labelX);
+        const sortedSymptoms = allSymptomData.map(e => e.dataY);
+
+        //generating symptoms chart
+        symptomsChart.config.data.labels = sortSymptomDate;
+        symptomsChart.config.data.datasets = sortedSymptoms;
+        symptomsChart.update();
     });
 
-
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
+    const config = {
         type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
+            labels: [],
+            datasets: []
         },
         options: {
             scales: {
                 y: {
                     beginAtZero: true
                 }
+
             }
         }
+    }
+
+    //creating behaviour chart
+    const behaviourChart = new Chart(
+        document.getElementById('behaviourChart'),
+        config
+    );
+
+    //creating symptoms chart
+
+    const symptomsChart = new Chart(
+        document.getElementById('symptomsChart'),
+        config
+    );
+
+
+    //Day rating graph
+
+    const dayRating = user.reports.map(function(value) {
+        const dr = value.dayClassification;
+        return dr;
     });
-</script>
 
 
-<script th:inline="javascript">
-    Highcharts.chart('first', {
 
-        title: {
-            text: 'Emotions'
-        },
-
-        subtitle: {
-            text: 'How to you classify the patient\'s emotions throughout the day?'
-        },
-
-        // colors: ['red', 'orange', 'green', 'blue', 'purple', 'brown'],
-
-        yAxis: {
-            title: {
-                text: 'Range'
-            }
-        },
-
-        xAxis: {
-            type: 'datetime',
-            categories: [[${anger.keySet()  }]],
-            tickInterval: 24 * 3600 * 1000,
-            labels: {
-                format: '{value:%d-%m}',
-                rotation: 45,
-                align: 'left'
-            },
-
-
-            accessibility: {
-                rangeDescription: 'Range: 2010 to 2020'
-            }
-
-        },
-
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-
-
-        plotOptions: {
-            series: {
-                type: 'datetime',
-
-                label: {
-                    // connectorAllowed: false,
-                    format: '{value:%d-%m}'
-                },
-
-                pointStart: Date.UTC([[${fristDate}]]),
-                format: '{value:%d-%m}',
-                pointInterval: 24 * 3600 * 1000 // one day
-            }
-        },
-
-        series: [{
-            name: 'Anger',
-            data: [[${anger.values()}]],
-        }, {
-            name: 'Trust',
-            data: [[${trust.values()}]]
-        }, {
-            name: 'Surprise',
-            data: [[${surprise.values()}]]
-        }, {
-            name: 'Anticipation',
-            data: [[${anticipation.values()}]]
-        }, {
-            name: 'Disgust',
-            data: [[${disgust.values()}]]
-        }, {
-            name: 'Fear',
-            data: [[${fear.values()}]]
-        }, {
-            name: 'Sadness',
-            data: [[${sadness.values()}]]
-        }, {
-            name: 'Joy',
-            data: [[${joy.values()}]]
-        }],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 1200,
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-
-    });
 
 </script>
 
-<script th:inline="javascript">
-    Highcharts.chart('second', {
-
-        title: {
-            text: 'Symptoms'
-        },
-
-        subtitle: {
-            text: 'Did the patient have any of those symptoms throughout the day?\n'
-        },
-
-        colors: ['red', 'orange', 'green', 'blue', 'purple', 'brown'],
-
-        yAxis: {
-            title: {
-                text: 'Range'
-            }
-        },
-
-        xAxis: {
-            type: 'datetime',
-            categories: [[${anger.keySet()}]],
-            tickInterval: 24 * 3600 * 1000,
-
-            labels: {
-                format: '{value:%d-%m}',
-                rotation: 45,
-                align: 'left'
-            },
-
-
-            accessibility: {
-                rangeDescription: 'Range: 2010 to 2020'
-            }
-
-        },
-
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-
-
-        plotOptions: {
-            series: {
-                type: 'datetime',
-
-                label: {
-                    // connectorAllowed: false,
-                    format: '{value:%d-%m}'
-                },
-
-                pointStart: Date.UTC([[${fristDate}]]),
-                format: '{value:%d-%m}',
-                pointInterval: 24 * 3600 * 1000, // one day
-                relativeXValue: true
-
-            }
-        },
-
-        series: [{
-            name: 'Anger',
-            data: [[${anger.values()}]],
-        }, {
-            name: 'Trust',
-            data: [[${trust.values()}]]
-        }, {
-            name: 'Surprise',
-            data: [[${surprise.values()}]]
-        }, {
-            name: 'Anticipation',
-            data: [[${anticipation.values()}]]
-        }, {
-            name: 'Disgust',
-            data: [[${disgust.values()}]]
-        }],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 1200,
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-
-    });
-
-</script>
-
+<div class="container-fluid sticky-bottom">
+    <footer th:replace="~{fragments :: footer}"></footer>
+</div>
 </body>
 </html>
 

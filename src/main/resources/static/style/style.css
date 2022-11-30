@@ -1,11 +1,27 @@
+.top-img{
+    background-color: #e6e8fd;
+    padding-top:70px;
+}
+
+.bg-tester1{
+    background-color: red;
+}
+
+
+.bg-tester{
+    background-color: yellow;
+}
+
+
 .logo-container {
-    background-color: rgba(81, 64, 236, 0.99);
+    background-color: rgba(91, 79, 194, 0.99);
     color: #FFF;
 }
 
 .logo {
     font-family: 'Bitter', serif;
     font-size: 2.5rem;
+    margin-left: 2.5rem;
 }
 
 h1 {
@@ -37,3 +53,12 @@ p {
     text-decoration: none;
 }
 
+
+
+
+/****DASHBOARD STYLE****/
+
+.dash-canva{
+    margin: 3px;
+
+}

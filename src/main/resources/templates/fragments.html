@@ -9,63 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@100;400;500;600&family=Montserrat:wght@100;400;600&display=swap"
           rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all">
+    <link th:href="@{/style/style.css}" rel="stylesheet" type="text/css" media="all">
 
-    <style>
+    <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
 
-        .logo-container {
-            background-color: rgba(81, 64, 236, 0.99);
-            color: #FFF;
-        }
-
-        .logo {
-            font-family: 'Bitter', serif;
-            font-size: 2.5rem;
-        }
-
-        h1 {
-            margin: 2rem;
-            text-align: center;
-        }
-
-        .thead-hover {
-            pointer-events: none;
-        }
-
-        p {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .navbar {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .sethover:not(.nohover):hover {
-            border: 1px solid red;
-        }
-
-        .logo:link {
-            text-decoration: none;
-        }
-
-        .logo:hover {
-            text-decoration: none;
-        }
-
-
-    </style>
 </head>
 
 
 
 <!--MENU TOP-->
-
-<div th:fragment="logo" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <div class="navbar row logo-container mb-5 p-2 d-flex justify-content-between shadow-lg"
-         xmlns:sec="http://www.w3.org/1999/xhtml">
-
+<header th:fragment="logo" xmlns:sec="http://www.w3.org/1999/xhtml" class="navbar row logo-container p-2 d-flex justify-content-between">
+    <div class="logo">
         <span class="ml-4"> <a class=" logo text-light mr-3" href="/home">AlzApp</a></span>
+        <img class="bi me-2" width="70" height="70" th:src="@{/img/logo.png}">
+    </div>
 
+    <div>
         <span class="mt-3 mr-4 d-flex justify-content-between">
             <a class="text-light mr-3" href="/home">Home</a>
             <a sec:authorize="!isAuthenticated()" class="text-light mr-3" href="/register">New Account</a>
@@ -89,4 +48,24 @@
     <!--            </div>-->
     <!--        </div>-->
     <!--    </div>-->
-</div>
+
+</header>
+
+
+<!--FOOTER-->
+
+    <footer class="footer d-flex flex-wrap justify-content-between align-items-center py-3 border-top navbar-fixed-bottom bg-light" xmlns:sec="http://www.w3.org/1999/xhtml">
+        <p class="col-md-4 mb-0 text-muted">© 2022 Jessica Lopes, NCI - National College of Ireland</p>
+
+        <a href="/home" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+           <img class="bi me-2" width="70" height="70" th:src="@{/img/logo.png}">
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a class="nav-link px-2 text-muted" href="/home">Home</a></li>
+            <li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link px-2 text-muted" href="/report/new">New Report</a></li>
+            <li class="nav-item"> <a sec:authorize="!isAuthenticated()" class="nav-link px-2 text-muted" href="/register">New Account</a></li>
+            <li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link px-2 text-muted" href="/report/table">Reports</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+    </footer>

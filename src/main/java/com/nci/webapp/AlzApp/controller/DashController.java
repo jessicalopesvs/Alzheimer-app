@@ -8,7 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/report/dashboard")
@@ -22,9 +27,8 @@ public class DashController {
 
 
     @GetMapping
-    public String moodChart(Model model, Principal principal) {
+    public String dashData(Model model, Principal principal) {
 
-        service.moodChart(model, principal);
 
         return "/report/dashboard";
     }
