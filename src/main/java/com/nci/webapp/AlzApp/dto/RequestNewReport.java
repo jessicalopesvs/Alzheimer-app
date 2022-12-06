@@ -12,7 +12,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Id;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 @Getter
@@ -20,8 +22,10 @@ import java.util.*;
 @AllArgsConstructor
 public class RequestNewReport implements Serializable {
 
+
+    private long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    private LocalDate date;
     private String drug;
     private int dayClassification;
     private int moodSwingClass;
@@ -40,21 +44,14 @@ public class RequestNewReport implements Serializable {
     }
 
 
-    //emotions
-
-    private int trust, disgust, fear, sadness, anticipation, joy, surprise, anger;
-
-
-    //symptoms
-
-    private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache, confusionalState;
-
-
     //add to report table
 
     public Report toReport(){
         Report report = new Report();
 
+        if (id != 0){
+            report.setId(id);
+        }
 
         //setting the data filled in the form
         report.setDate(date);
@@ -66,28 +63,6 @@ public class RequestNewReport implements Serializable {
         report.setSideEffects(sideEffects);
         report.setBehaviour(behaviour);
         report.setSymptom(symptom);
-
-        //setting emotions list
-
-        report.setAnticipation(anticipation);
-        report.setDisgust(disgust);
-        report.setFear(fear);
-        report.setJoy(joy);
-        report.setSadness(sadness);
-        report.setSurprise(surprise);
-        report.setTrust(trust);
-        report.setAnger(anger);
-
-        //setting symptoms list
-
-        report.setSleepy(sleepy);
-        report.setWeak(weak);
-        report.setNauseus(nauseus);
-        report.setVomit(vomit);
-        report.setLackAppetite(lackAppetite);
-        report.setHeadache(headache);
-        report.setBodyache(bodyache);
-        report.setConfusionalState(confusionalState);
 
         return report;
     }

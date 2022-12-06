@@ -15,4 +15,9 @@ public interface ReportRepository extends JpaRepository<Report,Long> {
     @Query("select r from Report r join r.user u where u.username = :username")
     List<Report> findAllByUser (@Param("username") String username);
 
+    @Query("SELECT r FROM Report r ORDER BY function('date', r.date) ASC")
+    List<Report> findAllReportsOrderByDateAsc();
+
+
+
 }

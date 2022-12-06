@@ -1,7 +1,10 @@
 package com.nci.webapp.AlzApp.service;
 
+import com.nci.webapp.AlzApp.dto.RequestNewReport;
 import com.nci.webapp.AlzApp.dto.RequestUser;
+import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.model.Role;
+import com.nci.webapp.AlzApp.model.RolesType;
 import com.nci.webapp.AlzApp.model.User;
 import com.nci.webapp.AlzApp.repository.RoleRepository;
 import com.nci.webapp.AlzApp.repository.UserRepository;
@@ -13,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -28,37 +31,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(RequestUser requestUser) {
+    public void saveUser(RequestUser requestUser, RolesType roleType) {
         User user = new User();
         user.setFName(requestUser.getFName());
         user.setLName(requestUser.getLName());
         user.setEmail(requestUser.getEmail());
         user.setUsername(requestUser.getUsername());
-
-        //encript password
         user.setPassword(passwordEncoder.encode(requestUser.getPassword()));
-
-        Role role = roleRepository.findByName("ROLE_USER");
-        if(role == null){
-            role = checkRoleExist();
-        }
+        Role role = roleRepository.findByName(roleType.getValue());
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
-
     }
+
+
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    //Create and save role
-    private Role checkRoleExist() {
-        Role role = new Role();
-        role.setName("ROLE_ADMIN");
-        role.setName("ROLE_USER");
-        return roleRepository.save(role);
-    }
+
 
     @Override
     public List<RequestUser> findAllUsers() {

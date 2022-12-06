@@ -1,6 +1,7 @@
 package com.nci.webapp.AlzApp.controller;
 
 import com.nci.webapp.AlzApp.dto.RequestUser;
+import com.nci.webapp.AlzApp.model.RolesType;
 import com.nci.webapp.AlzApp.model.User;
 
 import com.nci.webapp.AlzApp.service.UserService;
@@ -50,7 +51,7 @@ public class AuthenticationController {
             return "user/register";
         }
         user.setEnabled(true);
-        userService.saveUser(user);
+        userService.saveUser(user, RolesType.USER);
         return "redirect:/register?success";
     }
 

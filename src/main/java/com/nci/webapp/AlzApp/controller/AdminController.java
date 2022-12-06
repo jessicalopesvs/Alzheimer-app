@@ -18,9 +18,9 @@ public class AdminController {
 
 
 
-    @GetMapping("/edit-user")
+    @GetMapping("/user-list")
     public String editUser(){
 
-    return "user/edit-user";
+    return "admin/user-list";
     }
 }

@@ -13,7 +13,7 @@ public enum Symptoms {
     APPETITE("Appetite"),
     HEADACHE("Headache"),
     BODYACHE("Bodyache"),
-    CONFUSIONAL_STATE("Confusional_state");
+    CONFUSIONAL_STATE("Confusional state");
 
 
     private final String displayValue;

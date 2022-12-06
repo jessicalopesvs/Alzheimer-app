@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: head}">
-    <title>Home</title>
+<head th:include="~{fragments :: head}">
+    <title id="pageTitle">Login</title>
 </head>
 
 <body>
@@ -15,7 +15,6 @@
         <h1>Login</h1>
     </div>
     <div class="card-header mb-3">
-
         <div class="card-body">
             <div th:if="${param.error}">
                 <div class="alert alert-danger">Invalid User and Password.</div>
@@ -51,20 +50,14 @@
 
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Login</button>
-                    <span> Not registered?
-                            <a th:href="@{/register}"> Register/SignUp Here</a>
-                        </span>
+                    <span> Not registered? <a th:href="@{/register}"> Register Here</a> </span>
                 </div>
             </form>
-
         </div>
-
-
     </div>
 </div>
 <div class="container-fluid fixed-bottom">
     <footer th:replace="~{fragments :: footer}"></footer>
 </div>
-
 </body>
-</html></textarea>
+</html>

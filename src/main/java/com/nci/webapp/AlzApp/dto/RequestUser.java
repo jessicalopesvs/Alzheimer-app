@@ -14,19 +14,17 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestUser {
-    private Long id;
+    //    private Long id;
     @NotEmpty
     private String fName;
     @NotEmpty
     private String lName;
     @NotEmpty
     private String username;
-    @NotEmpty (message = "Set a password. The field should not be empty")
+    @NotEmpty(message = "Set a password. The field should not be empty")
     private String password;
-    @NotEmpty (message = "Email shoud not be empty")
+    @NotEmpty(message = "Email shoud not be empty")
     @Email
     private String email;
-
     private Boolean enabled = true;
-
 }

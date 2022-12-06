@@ -1,5 +1,9 @@
 package com.nci.webapp.AlzApp.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nci.webapp.AlzApp.api.FDADrugs;
+import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
 import com.nci.webapp.AlzApp.service.DashService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/report/dashboard")
@@ -32,4 +38,5 @@ public class DashController {
 
         return "/report/dashboard";
     }
+
 }

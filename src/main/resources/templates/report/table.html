@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: head}">
-    <title>Home</title>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:include="~{fragments :: head}">
+    <title id="pageTitle">Reports</title>
 </head>
 <body>
 
@@ -14,60 +14,36 @@
 <div class="d-flex p-2 flex-row justify-content-center">
     <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
     <div class="row d-flex">
-        <div class="table-wrap">
-            <table class="table table-hover table-bordered">
-                <thead class="table-light text-center table-bordered">
+        <div class="table-wrap scrollable">
+            <table class="table table-hover table-bordered table-striped">
+                <thead class="text-center table-bordered tophead">
                 <tr class="thead-hover">
+                    <th sec:authorize="hasAnyAuthority('ADMIN')">User</th>
+                    <th>Report ID</th>
                     <th class="px-5 mx-3">Report Date</th>
-                    <th class="px-5">Drug</th>
                     <th>Day Rating</th>
-                    <th>Mood Swing</th>
-                    <th>Trust</th>
-                    <th>Disgust</th>
-                    <th>Sadness</th>
-                    <th>Anticipation</th>
-                    <th>Joy</th>
-                    <th>Surprise</th>
-                    <th>Anger</th>
+                    <th class="px-5">Medication</th>
+                    <th class="px-5">Side Effects</th>
 
+                    <th sec:authorize="hasAnyAuthority('USER')">Edit</th>
 
-                    <th>Symptoms</th>
-                    <th>Sleepy</th>
-                    <th>Weakness</th>
-                    <th>Nauseus</th>
-                    <th>Vomit</th>
-                    <th>Appetite</th>
-                    <th>Headache</th>
-                    <th>Bodyache</th>
 
                 </tr>
                 </thead>
-
                 <tbody>
                 <tr th:each="report : ${reports}" class="text-center">
-                    <td th:text="${#dates.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
-                    <td th:text="${report.drug}">Drugs</td>
+                    <td sec:authorize="hasAnyAuthority('ADMIN')" th:text="${report.user.username}">User</td>
+                    <td th:text="${report.id}">id</td>
+                    <!--/*@thymesVar id="date" type="com.nci.webapp"*/-->
+                    <td th:text="${#temporals.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
                     <td th:text="${report.dayClassification}">Day Rating</td>
+                    <td th:text="${report.drug}">Drugs</td>
+                    <td th:text="${report.sideEffects}">Side Effects</td>
 
-                    <td th:text="${report.trust}">Trust</td>-->
+                    <td sec:authorize="hasAnyAuthority('USER')"> <a th:href="@{/report/edit/{id}(id=${report.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/report/delete/{id}(id=${report.id})}" class="btn btn-danger">Delete</a>
+                    </td>
 
-
-                    <td th:text="${report.trust}">Trust</td>
-                    <td th:text="${report.disgust}">disgust</td>
-                    <td th:text="${report.sadness}">sadness</td>
-                    <td th:text="${report.anticipation}">anticipation</td>
-                    <td th:text="${report.joy}">joy</td>
-                    <td th:text="${report.surprise}">surprise</td>
-                    <td th:text="${report.anger}">anger</td>
-
-
-                    <td th:text="${report.sleepy}">Sleepy</td>
-                    <td th:text="${report.weak}">Weakness</td>
-                    <td th:text="${report.nauseus}">Nauseus</td>
-                    <td th:text="${report.vomit}">Vomit</td>
-                    <td th:text="${report.lackAppetite}">Appetite</td>
-                    <td th:text="${report.headache}">Headache</td>
-                    <td th:text="${report.bodyache}">Bodyache</td>
                 </tr>
                 </tbody>
 
@@ -79,8 +55,32 @@
 </div>
 
 
-<div class="container-fluid sticky-bottom">
-    <footer th:replace="~{fragments :: footer}"></footer>
-</div>
+<!--<div th:if = "${totalPages > 1}">-->
+<!--    <div class = "row col-sm-10">-->
+<!--        <div class = "col-sm-2">-->
+<!--            Total Rows: [[${totalItems}]]-->
+<!--        </div>-->
+<!--        <div class = "col-sm-1">-->
+<!--					<span th:each="i: ${#numbers.sequence(1, totalPages)}">-->
+<!--						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>-->
+<!--						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;-->
+<!--					</span>-->
+<!--        </div>-->
+<!--        <div class = "col-sm-1">-->
+<!--            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>-->
+<!--            <span th:unless="${currentPage < totalPages}">Next</span>-->
+<!--        </div>-->
+
+<!--        <div class="col-sm-1">-->
+<!--            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>-->
+<!--            <span th:unless="${currentPage < totalPages}">Last</span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<div class="container-fluid fixed-bottom">-->
+<!--    <footer th:replace="~{fragments :: footer}"></footer>-->
+<!--</div>-->
 </body>
 </html>

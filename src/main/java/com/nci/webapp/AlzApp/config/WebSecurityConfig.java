@@ -1,5 +1,6 @@
 package com.nci.webapp.AlzApp.config;
 
+import com.nci.webapp.AlzApp.model.RolesType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,22 +16,25 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig  {
+public class WebSecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    //method to set up  the security and authentication
     @Bean
-    public  SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
-                .antMatchers("/users").hasRole("ADMIN")
-                .antMatchers("/report/**").hasRole("USER")
+                .antMatchers("/users").hasAnyAuthority(RolesType.ADMIN.getValue())
+                .antMatchers("/report/new").hasAnyAuthority(RolesType.USER.getValue())
+                .antMatchers("/report/table").hasAnyAuthority(RolesType.USER.getValue(), RolesType.ADMIN.getValue())
                 .antMatchers("/favicon.ico").permitAll()
                 .and()
                 .formLogin(
@@ -39,13 +43,10 @@ public class WebSecurityConfig  {
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/home")
                                 .permitAll()
-
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
                 );
-
-
         return http.build();
     }
 
@@ -55,16 +56,9 @@ public class WebSecurityConfig  {
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
-//
-//
-//    @Override
-//    public void filterChain(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/static/**");
-//    }
 
     @Bean
-    public WebSecurityCustomizer wsCust (){
-        return (web) ->  web.ignoring().antMatchers("/static/**");
-
+    public WebSecurityCustomizer wsCust() {
+        return (web) -> web.ignoring().antMatchers("/static/**");
     }
 }

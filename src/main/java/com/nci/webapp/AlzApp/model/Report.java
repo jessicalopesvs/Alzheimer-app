@@ -9,7 +9,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 @Getter  @Setter //<<---- seting getters and setter via lombock
@@ -23,7 +25,8 @@ public class Report implements Serializable {
     private long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 
-    private Date date;
+    @NotEmpty
+    private LocalDate date;
     private String drug;
     private int dayClassification;
     private int moodSwingClass;
@@ -45,26 +48,6 @@ public class Report implements Serializable {
     @JsonBackReference
     @ManyToOne (fetch = FetchType.LAZY)
     private User user;
-
-
-    //emotions
-
-    private int trust, disgust, fear, sadness, anticipation, joy, surprise, anger;
-
-
-    //symptoms
-
-    private int sleepy, weak, nauseus, vomit, lackAppetite, headache, bodyache, confusionalState;
-
-    //    List<Behavior> behaviors;
-
-//    @entity
-//    class Behavior
-//    String name;
-//    int classification;
-//    enum type; // Emotion, Symptom
-
-//    getBehaviors -> filter by type == Emotion
 
 
 }

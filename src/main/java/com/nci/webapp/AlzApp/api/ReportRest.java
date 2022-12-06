@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/reports")
@@ -27,21 +26,22 @@ public class ReportRest {
     private ReportRepository reportRepository;
 
     @GetMapping("user-report.json")
-    public List<User> getReports(Principal principal){
-
-        String username = "user";
-        Sort sort = Sort.by("date").ascending();
-
-        return userRepository.findAll();
+    public List<User> getReports(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        List<Report> sortedReports = user.getReports().stream()
+                .sorted(Comparator.comparing(Report::getDate))
+                .collect(Collectors.toList());
+        user.setReports(sortedReports);
+        return Arrays.asList(user);
     }
 
-    @GetMapping ("report.json")
-    public List<Report> getReport(Principal principal){
+    @GetMapping("report.json")
+    public List<Report> getReport(Principal principal) {
 
         List<Report> reports = reportRepository.findAllByUser(principal.getName());
 
         Sort sort = Sort.by("date").ascending();
-
-        return reportRepository.findAll();
+        System.out.println(reportRepository.findAllReportsOrderByDateAsc().toString());
+        return reportRepository.findAllReportsOrderByDateAsc();
     }
 }

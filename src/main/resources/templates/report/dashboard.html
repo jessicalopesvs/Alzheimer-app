@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: head}">
-    <meta charset="UTF-8">
-    <title>Moodchart</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-
+<head th:include="~{fragments :: head}">
+    <title id="pageTitle">Dashboard</title>
+</head>
 </head>
 <body>
 <div th:replace="~{fragments :: logo}"></div>
 
 <div><h1>Report</h1></div>
-<div class="flex-container">
 
+<div class="row justify-content-center mx-5">
+    Start: <input type="date" value="datePicker" id="start" min="2022-01-20" max="2023-01-01">
+    End: <input type="date"
+                value="datePicker"
+                id="end"
+>
 
-    <div class="row justify-content-center">
-
-        <div class="col-md-4  col-sm-12 dash-canva "> <h3 class="chart-title">Behaviour</h3> <canvas id="behaviourChart"></canvas>
-        </div>
-        <div class="col-md-4 col-sm-12 dash-canva "><h3 class="chart-title">Sympyoms</h3> <canvas id="symptomsChart"> </canvas></div>
-
-    </div>
-    <div class="row justify-content-center">
-
-        <div class="col-md-4 col-sm-12 dash-canva bg-tester"> <h3 class="chart-title">Day Rating</h3></div>
-        <div class="col-md-4 col-sm-12 dash-canva bg-tester"> <h3 class="chart-title">Side Effects</h3>test</div>
-
-    </div>
-
+    <button onclick="filterDate()">Filter</button>
+    <button onclick="resetDate()">Reset</button>
+<!--    <button onclick="thirtyDaysFilter()">Reset</button>-->
 
 </div>
+<div class="flex-container mt-5 mb-3">
 
-<script onload="fetchData()" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-4 col-lg-6 col-12 col-md-6  col-sm-12 dash-canva "><h3 class="chart-title">Behaviour</h3>
+            <canvas id="behaviourChart"></canvas>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-12 col-md-6 col-sm-12 dash-canva "><h3 class="chart-title">Symptoms</h3>
+            <canvas id="symptomsChart"></canvas>
+        </div>
+
+    </div>
+    <div class="row justify-content-center">
+
+        <div class="col-xl-4 col-lg-6 col-12 col-md-6 col-sm-12 dash-canva "><h3 class="chart-title">Day Rating</h3>
+            <canvas id="dayChart"></canvas>
+        </div>
+<!--        <div class="col-md-4 col-sm-12 dash-canva bg-tester"><h3 class="chart-title">Side Effects</h3>test</div>-->
+    </div>
+
+    <div onload="fetchData()"></div>
+</div>
+
+<!--CREATING THE DASHBOARD VIA CHARTS API-->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     //fetch function
-    async function fetchData(){
+    async function fetchData() {
         const url = 'http://localhost:8080/api/reports/user-report.json';
         const response = await fetch(url);
         //wait until the request has been completed
@@ -50,17 +65,14 @@
         const user = dataPoints[0];
 
         // the labels are going to be date
-        const labels = user.reports.map(function(value) {
-            const dt = new Date(value.date);
-            return dt.toLocaleDateString();
+        const labels = user.reports.map(function (value) {
+            return new Date(value.date).toLocaleDateString();
         });
 
-
-
         // this can just be replicated for symptoms
-        const behaviours = ['Anger','Fear','Trust','Disgust','Sadness','Anticipation','Joy','Surprise'];
-        const datasets = behaviours.map(function(behaviourName){
-            const data = user.reports.map(function(value){
+        const behaviours = ['Anger', 'Fear', 'Trust', 'Disgust', 'Sadness', 'Anticipation', 'Joy', 'Surprise'];
+        const datasets = behaviours.map(function (behaviourName) {
+            const data = user.reports.map(function (value) {
                 return value.behaviour[behaviourName];
             });
             return {
@@ -70,34 +82,21 @@
             };
         });
 
-
-        //joining date and behaivoural date
-        const allBehaviourData = [];
-        for (let i=0; i <labels.length; ++i){
-            allBehaviourData.push({
-                labelX: labels[i],//date
-                dataY: datasets[i]//data
-                });
-        }
-
-        allBehaviourData.sort((a,b) => a.labelX - b.labelX);
-
-        const sortBehaviourDate = allBehaviourData.map(e => e.labelX);
-        const sortedBehaviour = allBehaviourData.map(e => e.dataY);
-
         //generating behaviour chart
-        behaviourChart.config.data.labels = sortBehaviourDate;
-        behaviourChart.config.data.datasets = sortedBehaviour;
+        behaviourChart.config.data.labels = labels;
+        behaviourChart.config.data.datasets = datasets;
         behaviourChart.update();
 
         //SYMPTOMS CHART//
-
-
-        const symptoms = ['Appetite','Nauseus','Headache','Somnolence','Weakness','Bodyache','Confusional state','Vomit'];
-        const sympDatasets = symptoms.map(function(symptomName){
-            const sympData = user.reports.map(function(value){
+        const symptoms = ['Appetite', 'Nauseus', 'Headache', 'Somnolence', 'Weakness', 'Bodyache', 'Confusional_state', 'Vomit'];
+        const sympDatasets = symptoms.map(function (symptomName) {
+            const sympData = user.reports.map(function (value) {
                 return value.symptom[symptomName];
             });
+            console.log(sympData);
+            if (symptomName == "Confusional_state") {
+                symptomName = "Confusional State";
+            }
             return {
                 label: symptomName,
                 data: sympData,
@@ -105,67 +104,120 @@
             };
         });
 
-
-        //joining date and behaivoural date
-        const allSymptomData = [];
-        for (let i=0; i <labels.length; ++i){
-            allSymptomData.push({
-                labelX: labels[i],//date
-                dataY: sympDatasets[i]//data
-            });
-        }
-
-        allSymptomData.sort((a,b) => a.labelX - b.labelX);
-
-        const sortSymptomDate = allSymptomData.map(e => e.labelX);
-        const sortedSymptoms = allSymptomData.map(e => e.dataY);
-
         //generating symptoms chart
-        symptomsChart.config.data.labels = sortSymptomDate;
-        symptomsChart.config.data.datasets = sortedSymptoms;
+        symptomsChart.config.data.labels = labels;
+        symptomsChart.config.data.datasets = sympDatasets;
         symptomsChart.update();
+
+        //DAY RATING GRAPH  - var dayClassification
+        const dayData = user.reports.map(function (value) {
+            return value.dayClassification;
+        });
+
+        const dayDataset = [{
+            label: 'Day Classification',
+            data: dayData,
+            borderWidth: 1
+        }];
+
+        // generating symptoms chart
+        dayChart.config.data.labels = labels;
+        dayChart.config.data.datasets = dayDataset;
+        dayChart.update();
     });
-
-    const config = {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: []
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-
-            }
-        }
-    }
 
     //creating behaviour chart
     const behaviourChart = new Chart(
         document.getElementById('behaviourChart'),
-        config
+        {
+            type: 'line',
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        min: (ctx) => {
+                            return ctx.chart.data.labels[0];
+                        },
+                        max: (ctx) => {
+                            return ctx.chart.data.labels[6];
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 6
+                    }
+                }
+            }
+        }
     );
 
     //creating symptoms chart
-
     const symptomsChart = new Chart(
         document.getElementById('symptomsChart'),
-        config
+        {
+            type: 'line',
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        min: (ctx) => {
+                            return ctx.chart.data.labels[0];
+                        },
+                        max: (ctx) => {
+                            return ctx.chart.data.labels[6];
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 6
+                    }
+                }
+            }
+        }
     );
 
-
     //Day rating graph
+    const dayChart = new Chart(
+        document.getElementById('dayChart'),
+        {
+            type: 'line',
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        min: (ctx) => {
+                            return ctx.chart.data.labels[0];
+                        },
+                        max: (ctx) => {
+                            return ctx.chart.data.labels[6];
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 6
+                    }
+                }
+            }
+        }
+    );
 
-    const dayRating = user.reports.map(function(value) {
-        const dr = value.dayClassification;
-        return dr;
-    });
+    function filterDate() {
+        const start = new Date(document.getElementById('start').value).toLocaleDateString();
+        const end = new Date(document.getElementById('end').value).toLocaleDateString();
 
+        symptomsChart.config.options.scales.x.min = start;
+        symptomsChart.config.options.scales.x.max = end;
 
+        behaviourChart.config.options.scales.x.min = start;
+        behaviourChart.config.options.scales.x.max = end;
 
+        dayChart.config.options.scales.x.min = start;
+        dayChart.config.options.scales.x.max = end;
 
+        symptomsChart.update();
+        behaviourChart.update();
+        dayChart.update();
+    }
 </script>
 
 <div class="container-fluid sticky-bottom">
@@ -174,10 +226,8 @@
 </body>
 </html>
 
-<script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<!--chart.js api scripts-->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
