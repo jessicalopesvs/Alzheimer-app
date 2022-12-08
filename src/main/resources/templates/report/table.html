@@ -8,79 +8,91 @@
 
 <div th:replace="~{fragments :: logo}"></div>
 <div>
-<h1>TABLE PAGE</h1>
+    <div class="top-title"><h1>Reports Data</h1></div>
 
-    <div class="text-center"><a href="/report/dashboard">Dash</a> </div>
-<div class="d-flex p-2 flex-row justify-content-center">
-    <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
-    <div class="row d-flex">
-        <div class="table-wrap scrollable">
-            <table class="table table-hover table-bordered table-striped">
-                <thead class="text-center table-bordered tophead">
-                <tr class="thead-hover">
-                    <th sec:authorize="hasAnyAuthority('ADMIN')">User</th>
-                    <th>Report ID</th>
-                    <th class="px-5 mx-3">Report Date</th>
-                    <th>Day Rating</th>
-                    <th class="px-5">Medication</th>
-                    <th class="px-5">Side Effects</th>
+    <div class="text-center my-4"><a class="delete-btn" href="/report/dashboard">Dashboard</a></div>
 
-                    <th sec:authorize="hasAnyAuthority('USER')">Edit</th>
+    <!--/*@thymesVar id="message" type="com"*/-->
+    <div class="d-flex p-2 flex-row justify-content-center">
+        <span class="message-success" th:text="${message}"></span>
+    </div>
+    <div class="container">
+
+        <div class="row">
+
+            <!--FILTER AND SEARCH FORM-->
+
+            <form method="get"
+                  th:action="@{/report/table/search}">
+<!--                {id}(id=${report.id})-->
+                <!--/*@thymesVar id="key" type="com"*/-->
+                <select class="form-control col-6" th:field="${key}">
+                    <option value="0">select</option>
+                    <option th:each="s : ${filterList}" th:text="${s}" th:value="${s}"> test</option>
+
+                </select>
+                <!--/*@thymesVar id="filterList" type="com"*/-->
+
+                <div class="col-md-3">
+
+                    <!--/*@thymesVar id="search" type="com"*/-->
+                    <input type="text" th:field="${search}">
+                </div>
+
+                <button type="submit"> search</button>
+
+            </form>
+        </div>
+
+    </div>
+    <!--TABLE-->
+    <div class="d-flex p-2 flex-row justify-content-center">
+        <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
+        <div class="row d-flex">
+            <div class="table-wrap scrollable">
+                <table class="table table-hover table-bordered table-striped">
+                    <thead class="text-center table-bordered tophead">
+                    <tr class="thead-hover">
+                        <th sec:authorize="hasAnyAuthority('ADMIN')">User</th>
+                        <th>Report ID</th>
 
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="report : ${reports}" class="text-center">
-                    <td sec:authorize="hasAnyAuthority('ADMIN')" th:text="${report.user.username}">User</td>
-                    <td th:text="${report.id}">id</td>
-                    <!--/*@thymesVar id="date" type="com.nci.webapp"*/-->
-                    <td th:text="${#temporals.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
-                    <td th:text="${report.dayClassification}">Day Rating</td>
-                    <td th:text="${report.drug}">Drugs</td>
-                    <td th:text="${report.sideEffects}">Side Effects</td>
+                        <th class="px-5 mx-3">Report Date</th>
+                        <th>Day Rating</th>
+                        <th class="px-5">Medication</th>
+                        <th class="px-5">Side Effects</th>
 
-                    <td sec:authorize="hasAnyAuthority('USER')"> <a th:href="@{/report/edit/{id}(id=${report.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/report/delete/{id}(id=${report.id})}" class="btn btn-danger">Delete</a>
-                    </td>
+                        <th sec:authorize="hasAnyAuthority('USER')">Edit</th>
 
-                </tr>
-                </tbody>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="report : ${reports}" class="text-center">
+                        <td sec:authorize="hasAnyAuthority('ADMIN')" th:text="${report.user.username}">User</td>
+                        <td th:text="${report.id}">id</td>
+                        <!--/*@thymesVar id="date" type="com.nci.webapp"*/-->
+                        <td th:text="${#temporals.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
+                        <td th:text="${report.dayClassification}">Day Rating</td>
+                        <td th:text="${report.drug}">Drugs</td>
+                        <td th:text="${report.sideEffects}">Side Effects</td>
 
-            </table>
+                        <td sec:authorize="hasAnyAuthority('USER')"><a th:href="@{/report/edit/{id}(id=${report.id})}"
+                                                                       class="btn btn-primary update-btn">Update</a>
+                            <a th:href="@{/report/delete/{id}(id=${report.id})}" class="btn delete-btn btn-danger">Delete</a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 </div>
 
 
-<!--<div th:if = "${totalPages > 1}">-->
-<!--    <div class = "row col-sm-10">-->
-<!--        <div class = "col-sm-2">-->
-<!--            Total Rows: [[${totalItems}]]-->
-<!--        </div>-->
-<!--        <div class = "col-sm-1">-->
-<!--					<span th:each="i: ${#numbers.sequence(1, totalPages)}">-->
-<!--						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>-->
-<!--						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;-->
-<!--					</span>-->
-<!--        </div>-->
-<!--        <div class = "col-sm-1">-->
-<!--            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>-->
-<!--            <span th:unless="${currentPage < totalPages}">Next</span>-->
-<!--        </div>-->
-
-<!--        <div class="col-sm-1">-->
-<!--            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>-->
-<!--            <span th:unless="${currentPage < totalPages}">Last</span>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--<div class="container-fluid fixed-bottom">-->
-<!--    <footer th:replace="~{fragments :: footer}"></footer>-->
-<!--</div>-->
 </body>
+<footer th:replace="~{fragments :: footer}"></footer>
+
 </html>

@@ -10,78 +10,80 @@
 <h1 class="text-center">New Report</h1>
 
 <div class="container">
+
     <div class="card mb-5">
 
         <!--/*@thymesVar id="requestNewReport" type="com.nci.webapp"*/-->
-                            <form th:action="@{/report/new-report}" method="POST" class="card-body" th:object="${requestNewReport}">
+        <form th:action="@{/report/new-report}" method="POST" class="card-body" th:object="${requestNewReport}">
 
 
-                                <div class="form-group">
-                                    <h2>How was the day?</h2>
+            <div class="form-group">
+                <h2>How was the day?</h2>
 
-                                    <label class="required">Date: </label>
-                                    <input th:field="${requestNewReport.date}" class="form-control col-3" type="date" name="date" >
-                                    <p th:errors="*{requestNewReport.date}" class="text-danger"
-                                       th:if="${#fields.hasErrors('date')}"></p>
+                <label class="required">Date: </label>
+                <input th:field="${requestNewReport.date}" class="form-control col-3" type="date" name="date">
+                <!--/*@thymesVar id="error" type="com"*/-->
+                <div class="text-danger text-er" th:text="${error}"></div>
 
-                                </div>
+            </div>
 
-                                <div class="form-group">
+            <div class="form-group">
 
-                                    <label>Treatment </label>
-                                    <!--/*@thymesVar id="drug" type="com.nci.webapp"*/-->
-                                    <input th:field="*{drug}" class="form-control" th:errorclass="is-invalid" placeholder="Medicine name - required" required/>
-                                </div>
+                <label>Treatment </label>
+                <!--/*@thymesVar id="drug" type="com.nci.webapp"*/-->
+                <input th:field="*{drug}" class="form-control" th:errorclass="is-invalid"
+                       placeholder="Medicine name - required" required/>
+            </div>
 
-                                <h2>Behavior</h2>
-                                <div class="form-group">
-                                    <label>How do you classify the day?</label></br>
-                                    <small>0 for hard 5 for easy</small></br>
-                                    <input th:field="*{dayClassification}" type="range" class="form-range" min="0" max="5" step="1"
-                                           onInput="$('#rangeval').html($(this).val())" required>
-                                    <span id="rangeval">0<!-- Default value --></span>
+            <h2>Behavior</h2>
+            <div class="form-group">
+                <label>How do you classify the day?</label></br>
+                <small>0 for hard 5 for easy</small></br>
+                <input th:field="*{dayClassification}" type="range" class="form-range" min="0" max="5" step="1"
+                       onInput="$('#rangeval').html($(this).val())" required>
+                <span id="rangeval">0<!-- Default value --></span>
 
-                                </div>
+            </div>
 
 
-                                <h4>Emotions</h4>
-                                <label>How to you classify the patient's emotions throughout the day?</label></br>
-                                <small> Measuring intensity: 0 to 5, being 0 some kind of emotion and 5 an intence emotion</small></br>
-                                <div class="container mt-3">
-                                    <div class="row">
-                                        <!--/*@thymesVar id="behaviour" type="com"*/-->
-                                        <div class="form-group col-3 col-12 col-sm-12 col-md-4 col-lg-3" th:each="p : ${behaviour}">
-                                            <div class="d-flex justify-content-between">
-                                                <!--/*@thymesVar id="key" type="com"*/-->
-                                                <label th:text="${p.key}">Somnolence</label>
-                                            </div>
-                                            <tr>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
+            <h4>Emotions</h4>
+            <label>How to you classify the patient's emotions throughout the day?</label></br>
+            <small> Measuring intensity: 0 to 5, being 0 some kind of emotion and 5 an intence emotion</small></br>
+            <div class="container mt-3">
+                <div class="row">
+                    <!--/*@thymesVar id="behaviour" type="com"*/-->
+                    <div class="form-group col-3 col-12 col-sm-12 col-md-4 col-lg-3" th:each="p : ${behaviour}">
+                        <div class="d-flex justify-content-between">
+                            <!--/*@thymesVar id="key" type="com"*/-->
+                            <label th:text="${p.key}">Somnolence</label>
+                        </div>
+                        <tr>
+                            <td>0</td>
+                        </tr>
+                        <tr>
 
-                                                <input th:field="*{behaviour['__${p.key}__']}" type="range" class="range-slider" min="0"
-                                                       max="5"
-                                                       step="1">
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                            </tr>
+                            <input th:field="*{behaviour['__${p.key}__']}" type="range" class="range-slider" min="0"
+                                   max="5"
+                                   step="1">
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                        </tr>
 
-                                            <span></span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
 
-                                <h4>Symptoms</h4>
-                                <label>Did the patient have any of those symptoms throughout the day?</label></br>
-                                <small> Measuring intensity: 0 to 5, being 0 some kind of the symptom and 5 an intence symptoms</small></br>
-                                <div class="container mt-3">
-                                    <div class="row">
-                                        <!--/*@thymesVar id="symptom" type="com"*/-->
-                                        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-3" th:each="s : ${symptom}">
-                                            <div class="d-flex justify-content-between">
-                                                <!--/*@thymesVar id="key" type="com"*/-->
+            <h4>Symptoms</h4>
+            <label>Did the patient have any of those symptoms throughout the day?</label></br>
+            <small> Measuring intensity: 0 to 5, being 0 some kind of the symptom and 5 an intence symptoms</small></br>
+            <div class="container mt-3">
+                <div class="row">
+                    <!--/*@thymesVar id="symptom" type="com"*/-->
+                    <div class="form-group col-12 col-sm-12 col-md-4 col-lg-3" th:each="s : ${symptom}">
+                        <div class="d-flex justify-content-between">
+                            <!--/*@thymesVar id="key" type="com"*/-->
                             <label th:text="${s.key}">Symptom</label>
                         </div>
                         <tr>
@@ -101,11 +103,11 @@
             </div>
 
 
-    <div class="col text-center mt-3">
-        <button class="btn btn-primary px-5 mx-5" type="submit"> Register</button>
+            <div class="col text-center mt-3">
+                <button class="btn btn-primary px-5 mx-5" type="submit"> Register</button>
+            </div>
+        </form>
     </div>
-</form>
-</div>
 </div>
 
 <div class="container-fluid sticky-bottom">

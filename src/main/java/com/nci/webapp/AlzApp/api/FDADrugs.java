@@ -13,7 +13,6 @@ public class FDADrugs {
         return results;
     }
 
-    // TODO: Replace String with a new Entity called Reaction
     public List<String> toReactions() {
         List<String> reactions = new ArrayList<>();
         results.stream().forEach(result -> {

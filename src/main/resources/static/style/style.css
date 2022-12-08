@@ -1,15 +1,15 @@
 /*General style*/
-.top-img{
+.top-img {
     background-color: #e6e8fd;
-    padding-top:70px;
+    padding-top: 70px;
 }
 
-.bg-tester1{
+.bg-tester1 {
     background-color: red;
 }
 
 
-.bg-tester{
+.bg-tester {
     background-color: yellow;
 }
 
@@ -56,23 +56,39 @@ p {
     text-decoration: none;
 }
 
+.top-title{
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+    background-color: rgba(161, 167, 231, 0.48);
+}
+
 
 /****FORM STYLE****/
-.scrollable{
+.scrollable {
     min-height: 300px;
-    overflow: scroll;}
+    overflow: scroll;
+}
+.text-er{
+    font-size: 15px;
+}
 
+.message-success{
+    color: darkgreen;
+    font-size: 20px;
+}
 
-table th{
+table th {
     position: sticky;
     top: 0px;
-    background: #a1a7e7 ;
+    background: rgba(91, 79, 194, 0.99);
+    color: #e6e8fd;
 
 }
 
 /****DASHBOARD STYLE****/
 
-.dash-canva{
+.dash-canva {
     margin: 3px;
 
 }
@@ -86,31 +102,75 @@ table th{
 
 /****TABLE STYLE****/
 
-tophead{
-    background-color: rgba(91, 79, 194, 0.51);
+
+/* btns */
+
+
+.update-btn{
+    background: rgba(91, 79, 194, 0.99);
+    border-radius: 999px;
+    box-shadow: rgba(91, 79, 194, 0.99) 0 10px 20px -10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Montserrat, Arial;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
 }
 
+
+.delete-btn{
+    background: #f05dab;
+    border-radius: 999px;
+    box-shadow: #e15df0 0 10px 20px -10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Montserrat, Arial;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+}
 
 
 /*ERROR PAGE*/
 
-.error-title{
+.error-title {
     font-size: 4.5rem;
 }
 
-.error-msg{
+.error-msg {
     font-size: 2.5rem;
     text-align: center;
     text-decoration: #a1a7e7;
 
 }
 
-.error-type{
+.error-type {
     text-align: center;
     color: darkgrey;
 }
 
-.error-img{
+.error-img {
     align-content: center;
     display: block;
     margin-left: auto;

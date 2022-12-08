@@ -3,8 +3,9 @@ package com.nci.webapp.AlzApp.service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nci.webapp.AlzApp.api.FDADrugs;
-import com.nci.webapp.AlzApp.dto.RequestNewReport;
+import com.nci.webapp.AlzApp.model.Emotions;
 import com.nci.webapp.AlzApp.model.Report;
+import com.nci.webapp.AlzApp.model.Symptoms;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
 import com.nci.webapp.AlzApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +13,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class ReportServiceImp implements ReportService {
@@ -66,7 +69,7 @@ public class ReportServiceImp implements ReportService {
         this.reportRepository.deleteById(id);
     }
 
-    //CALLING THE FDA API;
+    /**CALLING THE FDA API*/
 
     @Override
     public List sideEffectsApi(String drugName) {
@@ -101,14 +104,27 @@ public class ReportServiceImp implements ReportService {
 
     @Override
     public Page<Report> findPage(int pageNo, int pageSize, String sortField, String sortDirection) {
-
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
 
-        Pageable pageable = (Pageable) PageRequest.of(pageNo - 1, pageSize, sort);
-        return this.reportRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return this.reportRepository.findAll(pageable);
     }
 
 
+    //generating lists
 
+    public HashMap<String, Integer> behaviourList (){
+        HashMap<String, Integer> behaviour = new HashMap<>();
+        Arrays.stream(Emotions.values()).forEach(emotions -> behaviour.put(emotions.getDisplayValue(), 0));
+
+        return  behaviour;
+    }
+
+    public HashMap<String, Integer> symptomsList () {
+        HashMap<String, Integer> symptom = new HashMap<>();
+        Arrays.stream(Symptoms.values()).forEach(s -> symptom.put(s.getDisplayValue(), 0));
+
+        return symptom;
+    }
 }

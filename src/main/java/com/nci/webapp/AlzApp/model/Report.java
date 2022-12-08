@@ -17,6 +17,7 @@ import java.util.*;
 @Getter  @Setter //<<---- seting getters and setter via lombock
 @AllArgsConstructor  @NoArgsConstructor //<<---- seting constructor via lombock
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UniqueUserAndDate", columnNames = {"date","user_username"})})
 public class Report implements Serializable {
 
     //Variables
@@ -25,7 +26,6 @@ public class Report implements Serializable {
     private long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 
-    @NotEmpty
     private LocalDate date;
     private String drug;
     private int dayClassification;
