@@ -1,4 +1,4 @@
-package com.nci.webapp.AlzApp.model;
+package com.nci.webapp.AlzApp.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

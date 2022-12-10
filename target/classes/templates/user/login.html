@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="~{fragments :: head}">
+    <title id="pageTitle">Login</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments :: logo}"></div>
+
+<!--<div th:replace="~{base :: titulo('Login')}"></div>-->
+<div class="container mt-5">
+
+    <div class="row">
+        <h1>Login</h1>
+    </div>
+    <div class="card-header mb-3">
+        <div class="card-body">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Invalid User and Password.</div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-success">You have been logged out.</div>
+            </div>
+            <form
+                    method="post"
+                    th:action="@{/login}"
+                    class="form-horizontal"
+                    role="form"
+            >
+                <div class="mb-3">
+                    <label for="username" class="control-label">Username *</label>
+                    <input type="text"
+                           id="username"
+                           name="username"
+                           class="form-control"
+                           placeholder="Username"
+                    />
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="control-label">Password *</label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           class="form-control"
+                           placeholder="Password"
+                    />
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <span> Not registered? <a th:href="@{/register}"> Register Here</a> </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container-fluid fixed-bottom">
+    <footer th:replace="~{fragments :: footer}"></footer>
+</div>
+</body>
+</html>

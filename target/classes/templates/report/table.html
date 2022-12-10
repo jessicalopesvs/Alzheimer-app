@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns="http://www.w3.org/1999/html">
+<head th:include="~{fragments :: head}">
+    <title id="pageTitle">Reports</title>
+</head>
+<body>
+
+<div th:replace="~{fragments :: logo}"></div>
+<div id="body-container">
+    <div id="body-main">
+        <div>
+            <div class="top-title"><h1>Reports Data</h1></div>
+
+            <div class="text-center my-4"><a class="btn delete-btn btn-secondary " href="/report/dashboard">Dashboard</a></div>
+
+            <!--/*@thymesVar id="message" type="com"*/-->
+            <div class="d-flex p-2 flex-row justify-content-center">
+                <span class="message-success" th:text="${message}"></span>
+            </div>
+
+        </div>
+        <div class="container">
+
+
+            <div class="flex-row  justify-content-center mb-3">
+                <!--FILTER AND SEARCH FORM-->
+                <!--/*@thymesVar id="error" type="com"*/-->
+                <div class="text-danger text-er ml-3" th:text="${error}"></div>
+
+                <!--/*@thymesVar id="reportSearchParams" type="com.nci.webapp"*/-->
+                <form method="GET" th:object="${reportSearchParams}"
+                      th:action="@{/report/table}">
+                    <div class="input-group">
+
+                        <select class="form-control mx-2" th:field="*{key}">
+                            <option value="none">Select a filter</option>
+                            <!--/*@thymesVar id="filterList" type="com"*/-->
+                            <option th:each="s : ${filterList}" th:text="${s}" th:value="${s}"> List</option>
+                        </select>
+
+                        <input class="form-control mx-2" type="text" th:field="*{value}" placeholder="Search">
+
+                        <button type="submit" class="btn update-btn btn-secondary ml-2">Search</button>
+                        <a href="/report/table" class="btn delete-btn btn-secondary ml-2">Reset</a>
+
+                    </div>
+                </form>
+                </form>
+            </div>
+
+        </div>
+        <!--TABLE-->
+
+        <div class="d-flex p-2 flex-row justify-content-center">
+            <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
+            <div class="row d-flex">
+                <div class="table-wrap">
+                    <table class="table table-hover table-bordered table-striped table-md">
+                        <thead class="text-center table-bordered tophead">
+                        <tr class="thead-hover">
+                            <th sec:authorize="hasAnyAuthority('ADMIN')">User</th>
+                            <th>Report ID</th>
+
+
+                            <th class="px-5 mx-3">Report Date</th>
+                            <th>Day Rating</th>
+                            <th class="px-5">Medication</th>
+                            <th class="px-5">Side Effects</th>
+                            <th class="px-5">Behaviour</th>
+                            <th class="px-5">Symptom</th>
+                            <th sec:authorize="hasAnyAuthority('USER')">Edit</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="report : ${reports}">
+                            <td sec:authorize="hasAnyAuthority('ADMIN')" th:text="${report.user.username}">User</td>
+                            <td th:text="${report.id}">id</td>
+                            <!--/*@thymesVar id="date" type="com.nci.webapp"*/-->
+                            <td th:text="${#temporals.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
+                            <td th:text="${report.dayClassification}">Day Rating</td>
+                            <td th:text="${report.drug}">Drugs</td>
+                            <td th:text="${report.sideEffects}">Side Effects</td>
+                            <td>
+                                <div th:each="p : ${report.behaviour}"><span th:text="${p.key}"></span> <span
+                                        th:text="*{report.behaviour['__${p.key}__']}">Behaviours List</span></div>
+                            </td>
+                            <td>
+                                <div th:each="s : ${report.symptom}"><span th:text="${s.key}"></span> <span
+                                        th:text="*{report.symptom['__${s.key}__']}">Symptoms List</span></div>
+                            </td>
+
+
+                            <td sec:authorize="hasAnyAuthority('USER')" class="justify-content-center fit">
+
+                                <div class="col-12">
+                                    <a
+                                            th:href="@{/report/edit/{id}(id=${report.id})}"
+                                            class="btn btn-secondary update-btn mb-4">Update</a></div>
+                                <div class="col-12">
+                                    <a th:href="@{/report/delete/{id}(id=${report.id})}"
+                                       class="btn delete-btn btn-danger">Delete</a></div>
+
+
+                            </td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer class="fix" th:replace="~{fragments :: footer}"></footer>
+
+
+</body>
+
+</html>

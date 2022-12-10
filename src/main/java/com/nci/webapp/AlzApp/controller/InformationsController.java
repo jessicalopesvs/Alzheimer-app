@@ -2,22 +2,19 @@ package com.nci.webapp.AlzApp.controller;
 
 import com.nci.webapp.AlzApp.api.Medline;
 import com.nci.webapp.AlzApp.config.RestConfig;
-import com.nci.webapp.AlzApp.model.RSSFeedReader;
+import com.nci.webapp.AlzApp.api.RSSFeedReader;
 import com.rometools.fetcher.FeedFetcher;
 import com.rometools.fetcher.FetcherException;
 import com.rometools.fetcher.impl.HttpURLFeedFetcher;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.feed.synd.SyndFeedImpl;
 import com.rometools.rome.io.FeedException;
-import com.rometools.rome.io.SyndFeedInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-import javax.sql.rowset.spi.XmlReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

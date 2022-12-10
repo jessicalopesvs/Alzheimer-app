@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="~{fragments :: head}">
+    <title id="pageTitle">New Report</title>
+
+</head>
+<body>
+<div th:replace="~{fragments :: errorPage}"></div>
+<div class="container justify-content-center">
+    <div class="row justify-text-center">
+    <h1 class="col-12 error-title">Oh no!</h1>
+        <img class= "error-img col-md-4" th:src="@{/img/sorry-vector.png}">
+
+        <div class="col-12 error-msg " th:text="${message}"></div>
+
+
+        <div class="col-12 error-type" th:text="${error}"></div>
+
+        <!--/*@thymesVar id="error" type="com"*/-->
+</div>
+</div>
+</body>
+</html>
