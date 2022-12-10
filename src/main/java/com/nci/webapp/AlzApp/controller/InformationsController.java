@@ -10,6 +10,7 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class InformationsController {
     RestConfig restConfig;
 
     @GetMapping ("/knowing-the-disease")
+    @Cacheable("knowing-the-disease")//to load the information and keep it  on cache
     public String informations(Model model){
 
         /**
