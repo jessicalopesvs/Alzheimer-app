@@ -1,5 +1,6 @@
 package com.nci.webapp.AlzApp.controller;
 
+import com.nci.webapp.AlzApp.dto.ReportSearchParams;
 import com.nci.webapp.AlzApp.dto.RequestNewReport;
 import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.model.User;
@@ -9,8 +10,6 @@ import com.nci.webapp.AlzApp.service.ReportServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -30,16 +26,29 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ReportController {
 
+
+    /**
+     * VIEW AND SEARCH DATA
+     */
+
+    //Setting the list to filter the search
+    private static final String MEDICATION = "Medication";
+    private static final String SIDE_EFFECTS = "Side effects";
+    private static final String DAY_RATING = "Day rating";
+
+    //show report form
+    private static final List<String> FILTER_KEYS = Arrays.asList(MEDICATION, SIDE_EFFECTS, DAY_RATING);
+
+    //save report form
     @Autowired //inject
     private ReportRepository reportRepository;
 
+
+    //UPDATE
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ReportServiceImp reportService;
-
-    //show report form
 
     @GetMapping("/new")
     public String ReportForm(RequestNewReport request, Model model) {
@@ -56,8 +65,6 @@ public class ReportController {
 
         return "report/new-report";
     }
-
-    //save report form
 
     @PostMapping("/new-report")
     public String NewReport(@Valid RequestNewReport request, BindingResult result, Model model) {
@@ -105,9 +112,6 @@ public class ReportController {
         }
         return "redirect:/report/dashboard";
     }
-
-
-    //UPDATE
 
     /**
      * UPDATE FORM
@@ -159,15 +163,12 @@ public class ReportController {
 
     @PostMapping("/update-report/")
     public String update(@Valid RequestNewReport request, BindingResult result, Model model) {
-
-
         //discover logged user username
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(username);
 
         //Getting the report by id inputs
         Report newData = request.toReport();
-
 
         //Calling the API to get the new side effects
         String drugName = newData.getDrug();
@@ -188,7 +189,6 @@ public class ReportController {
         return "redirect:/report/table";
     }
 
-
     //delete
     @GetMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable(value = "id") long id, Model model) {
@@ -204,15 +204,15 @@ public class ReportController {
         return "forward:/report/table";
     }
 
-    //VIEW DATA
-
     @GetMapping("/table")
-    public String table(Model model, Principal principal) {
-        List<Report> reports = new ArrayList<>();
+    public String table(@Valid ReportSearchParams request, Model model, Principal principal) {
+//        List list = reportService.medlineApi();
+//        log.info("medline result: {}", list.toString());
 
+        List<Report> reports = new ArrayList<>();
+        HashMap<String, Integer> behaviour = new HashMap<>();
 
         log.info("principal: {}", principal.toString());
-
         if (principal.getName().equals("admin")) {
             reports = reportRepository.findAll().stream().sorted(Comparator.comparing(Report::getDate)).collect(Collectors.toList());
         } else {
@@ -221,90 +221,45 @@ public class ReportController {
             reports = reports.stream().sorted(Comparator.comparing(Report::getDate)).collect(Collectors.toList());
         }
 
-        // TODO: If doesnt want to filter just skip the switch case below
-        List<String> filter = new ArrayList<>();
-        filter.add("medication");
-        filter.add("side-effects");
-        model.addAttribute("filterList", filter);
-        System.out.println(filter.toString());
 
+        /**
+         * The search function
+         */
 
-        String searchType = "key";
-        String searchValue = "value";
-        model.addAttribute("search", searchValue);
-        model.addAttribute("key", searchType);
+        //create the dropdown list
+        String message ="";
 
+        log.info("search params: {}", request.toString()); //cheking parameters searched on log
+
+        //seting the switch case based on the user choice
+        if (request.getKey() != null) {
+            if(request.getKey().contains("none") && request.getValue().isBlank() && request.getValue().isEmpty()){
+                message = "Search validation: Please, select a filter and a key-word";
+                System.out.println(message);
+            }else if(request.getValue().isBlank() || request.getValue().isEmpty()) {
+                message = "Search validation: Please, type a key-word";
+                System.out.println(message);
+            }else if(request.getKey().contains("none")){
+                message = "Search validation:  The filter field must be selected";
+                System.out.println(message);
+            }else{
+
+            switch (request.getKey()) {
+                case MEDICATION:
+                    reports = reports.stream().filter(report -> report.getDrug().equalsIgnoreCase(request.getValue())).collect(Collectors.toList());
+                    break;
+                case SIDE_EFFECTS:
+                    reports = reports.stream().filter(report -> report.getSideEffects().stream().anyMatch(request.getValue()::equalsIgnoreCase)).collect(Collectors.toList());
+                    break;
+                default:
+                    log.info("no key selected");
+
+            }}
+        }
+        model.addAttribute("error", message);
+        model.addAttribute("filterList", FILTER_KEYS);
         model.addAttribute("reports", reports);
         return "report/table";
     }
 
-
-    @GetMapping("/table/search?type={type}&search={search}")
-    public String search(@Param(value = "type") String searchType,
-                         @Param(value = "search") String searchValue,
-                         Model model, Principal principal, @PathVariable String search) {
-        List<Report> reports = new ArrayList<>();
-
-        // TODO: If doesnt want to filter just skip the switch case below
-        List<String> filter = new ArrayList<>();
-        filter.add("medication");
-        filter.add("side-effects");
-        model.addAttribute("filterList", filter);
-
-
-//        String searchType = "key";
-//        String searchValue = "value";
-        model.addAttribute("search", searchValue);
-        model.addAttribute("key", searchType);
-
-
-        log.info("principal: {}", principal.toString());
-
-        if (principal.getName().equals("admin")) {
-            reports = reportRepository.findAll().stream().sorted(Comparator.comparing(Report::getDate)).collect(Collectors.toList());
-        } else {
-            reports = reportRepository.findAllByUser(principal.getName());
-            //sorting list
-            reports = reports.stream().sorted(Comparator.comparing(Report::getDate)).collect(Collectors.toList());
-        }
-
-
-        switch (searchType) {
-            case "medication":
-                reports = reports.stream().filter(report -> report.getDrug().equalsIgnoreCase(searchValue)).collect(Collectors.toList());
-                break;
-            case "side-effects":
-                reports = reports.stream().filter(report -> report.getSideEffects().stream().anyMatch(searchValue::equalsIgnoreCase)).collect(Collectors.toList());
-                break;
-        }
-
-        return "forward:/report/table";
-    }
-
-    /**
-     * SETTIN UP PAGE
-     **/
-
-
-    @GetMapping("/page/{pageNo}")
-    public String findPage(@PathVariable(value = "pageNo") int pageNo,
-                           @RequestParam("sortField") String sortField,
-                           @RequestParam("sortDir") String sortDir,
-                           Model model) {
-        int pageSize = 10;
-
-        Page<Report> page = reportService.findPage(pageNo, pageSize, sortField, sortDir);
-        List<Report> listReports = page.getContent();
-
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        model.addAttribute("listReports", listReports);
-        return "index";
-    }
 }

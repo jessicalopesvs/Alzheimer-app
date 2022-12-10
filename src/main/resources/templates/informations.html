@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="~{fragments :: head}">
+    <title id="pageTitle">Home</title>
+</head>
+<body>
+
+<header th:replace="~{fragments :: logo}"></header>
+
+<!--TOP CARD AND INFORMATION-->
+<div class="container-fluid top-img p-5">
+    <div class="row py-5 align-items-center">
+        <div class="col-lg-5 col-bg-5 col-md-12 col-sm-12 justify-content-center">
+            <img class="float-right img-fluid" th:src="@{/img/home-top-img-2.png}">
+        </div>
+        <div class="col-lg-7 col-bg-7 col-md-12 col-sm-12 align-items-center">
+            <h1 class="home-title text-left mt-5">INFORMATIONS </h1>
+            <p class="ml-4">Monitor the daily routine of a patient with Alzheimer's disease</p>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+<!--FEATURES PRESENTATION-->
+<div class="container px-4 py-3" id="featured-3">
+
+    <h2 th:text="${name}"></h2>
+
+            <!--/*@thymesVar id="text" type="com"*/-->
+            <p th:utext="${text}"></p>
+    <!--/*@thymesVar id="teste" type="com"*/-->
+<!--    <p th:utext="${teste}"></p>-->
+            <!--/*@thymesVar id="link" type="com"*/-->
+    <p>Synonyms:</p> <!--/*@thymesVar id="synonyms" type="com"*/-->
+    <p th:text="${synonyms}">Medline Plus</p>
+
+    <p>Reference:</p> <a th:href="${link}">Medline Plus</a>
+
+</div>
+
+<!--FEATURES PRESENTATION-->
+
+<div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom">Create new account and start to monitor</h2>
+    Create new account
+</div>
+
+<div class="container-fluid sticky-bottom">
+    <footer th:replace="~{fragments :: footer}"></footer>
+</div>
+
+</body>
+</html>

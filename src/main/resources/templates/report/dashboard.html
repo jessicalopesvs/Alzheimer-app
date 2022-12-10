@@ -10,17 +10,24 @@
 <div class="top-title"><h1>Report Dashboard</h1></div>
 
 <div class="row justify-content-center mx-5">
-    Start: <input type="date" value="datePicker" id="start" min="2022-01-20" max="2023-01-01">
-    End: <input type="date"
-                value="datePicker"
-                id="end"
->
 
-    <button onclick="filterDate()">Filter</button>
-    <button onclick="resetDate()">Reset</button>
+    <label>Start: <input class="form-control" type="date"
+                         value="datePicker"
+                         id="start"></label>
+
+    <label class="ml-3"> End:
+        <input class="form-control" type="date"
+               value="datePicker"
+               id="end">
+    </label>
+    <div class="col-3 mt-2">
+        <button class="update-btn mt-2" onclick="filterDate()">Filter</button>
+
+        <button class="delete-btn mt-2" onclick="resetDate()">Reset</button>
+    </div>
+</div>
 <!--    <button onclick="thirtyDaysFilter()">Reset</button>-->
 
-</div>
 <div class="flex-container mt-5 mb-3">
 
 
@@ -39,7 +46,7 @@
         <div class="col-xl-4 col-lg-6 col-12 col-md-6 col-sm-12 dash-canva "><h3 class="chart-title">Day Rating</h3>
             <canvas id="dayChart"></canvas>
         </div>
-<!--        <div class="col-md-4 col-sm-12 dash-canva bg-tester"><h3 class="chart-title">Side Effects</h3>test</div>-->
+        <!--        <div class="col-md-4 col-sm-12 dash-canva bg-tester"><h3 class="chart-title">Side Effects</h3>test</div>-->
     </div>
 
     <div onload="fetchData()"></div>
@@ -69,6 +76,7 @@
             return new Date(value.date).toLocaleDateString();
         });
 
+
         // this can just be replicated for symptoms
         const behaviours = ['Anger', 'Fear', 'Trust', 'Disgust', 'Sadness', 'Anticipation', 'Joy', 'Surprise'];
         const datasets = behaviours.map(function (behaviourName) {
@@ -82,6 +90,11 @@
             };
         });
 
+        const size = datasets.length;
+
+        if(size < 15){
+            console.log("menor que 7");
+        }
         //generating behaviour chart
         behaviourChart.config.data.labels = labels;
         behaviourChart.config.data.datasets = datasets;
@@ -104,6 +117,7 @@
             };
         });
 
+
         //generating symptoms chart
         symptomsChart.config.data.labels = labels;
         symptomsChart.config.data.datasets = sympDatasets;
@@ -120,22 +134,30 @@
             borderWidth: 1
         }];
 
+        console.log(datasets.length);
+
+
         // generating symptoms chart
         dayChart.config.data.labels = labels;
         dayChart.config.data.datasets = dayDataset;
         dayChart.update();
     });
 
-    //creating behaviour chart
+
+
+
     const behaviourChart = new Chart(
+
         document.getElementById('behaviourChart'),
         {
+
             type: 'line',
             options: {
                 responsive: true,
                 scales: {
-                    x: {
+                    x:{
                         min: (ctx) => {
+
                             return ctx.chart.data.labels[0];
                         },
                         max: (ctx) => {
@@ -204,6 +226,9 @@
     function filterDate() {
         const start = new Date(document.getElementById('start').value).toLocaleDateString();
         const end = new Date(document.getElementById('end').value).toLocaleDateString();
+        console.log(start);
+        console.log(end);
+
 
         symptomsChart.config.options.scales.x.min = start;
         symptomsChart.config.options.scales.x.max = end;

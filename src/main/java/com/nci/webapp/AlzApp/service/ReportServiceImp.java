@@ -8,25 +8,21 @@ import com.nci.webapp.AlzApp.model.Report;
 import com.nci.webapp.AlzApp.model.Symptoms;
 import com.nci.webapp.AlzApp.repository.ReportRepository;
 import com.nci.webapp.AlzApp.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Pageable;
+
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
+@Slf4j
 public class ReportServiceImp implements ReportService {
 
     @Autowired //inject
@@ -62,7 +58,7 @@ public class ReportServiceImp implements ReportService {
 
     }
 
-    //delete
+    //DELETE
 
     @Override
     public void deleteReportById(long id) {
@@ -94,25 +90,17 @@ public class ReportServiceImp implements ReportService {
             drugs.toReactions().stream().forEach(d -> sideEffectsList.add(d));
         } catch (IOException e) {
             e.printStackTrace();
+            return new ArrayList();
         }
 
         return sideEffectsList;
     }
 
 
-    //pages
-
-    @Override
-    public Page<Report> findPage(int pageNo, int pageSize, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-                Sort.by(sortField).descending();
-
-        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-        return this.reportRepository.findAll(pageable);
-    }
 
 
-    //generating lists
+
+    //generating lists to display on the report form
 
     public HashMap<String, Integer> behaviourList (){
         HashMap<String, Integer> behaviour = new HashMap<>();

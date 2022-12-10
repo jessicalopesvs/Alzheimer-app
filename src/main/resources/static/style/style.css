@@ -1,4 +1,23 @@
 /*General style*/
+*{
+    margin:0;
+    padding: 0;
+}
+
+html, body{
+    height: 100%;
+}
+
+#body-container{
+    min-height: 100%;
+
+}
+
+#body-main{
+    overflow: auto;
+    padding-bottom: 100px;
+}
+
 .top-img {
     background-color: #e6e8fd;
     padding-top: 70px;
@@ -63,7 +82,6 @@ p {
     background-color: rgba(161, 167, 231, 0.48);
 }
 
-
 /****FORM STYLE****/
 .scrollable {
     min-height: 300px;
@@ -86,6 +104,8 @@ table th {
 
 }
 
+
+
 /****DASHBOARD STYLE****/
 
 .dash-canva {
@@ -101,6 +121,22 @@ table th {
 }
 
 /****TABLE STYLE****/
+
+table, td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+tr{
+    font-size: 1rem;
+}
+
 
 
 /* btns */
@@ -151,6 +187,12 @@ table th {
     border: 0;
 }
 
+/* search field */
+
+.input-group{
+    margin-right: 10px;
+}
+
 
 /*ERROR PAGE*/
 
@@ -175,4 +217,14 @@ table th {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+/*FOOTER*/
+
+#footer{
+
+    position: relative;
+    height: 100px;
+    margin-top: -100px;
+    clear: both;
 }
