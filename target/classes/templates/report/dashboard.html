@@ -77,6 +77,8 @@
         });
 
 
+
+
         // this can just be replicated for symptoms
         const behaviours = ['Anger', 'Fear', 'Trust', 'Disgust', 'Sadness', 'Anticipation', 'Joy', 'Surprise'];
         const datasets = behaviours.map(function (behaviourName) {
@@ -89,6 +91,7 @@
                 borderWidth: 1
             };
         });
+
 
         const size = datasets.length;
 
@@ -186,7 +189,7 @@
                             return ctx.chart.data.labels[0];
                         },
                         max: (ctx) => {
-                            return ctx.chart.data.labels[6];
+                            return ctx.chart.data.labels[30];
                         }
                     },
                     y: {
@@ -210,9 +213,6 @@
                         min: (ctx) => {
                             return ctx.chart.data.labels[0];
                         },
-                        max: (ctx) => {
-                            return ctx.chart.data.labels[6];
-                        }
                     },
                     y: {
                         beginAtZero: true,
@@ -224,8 +224,9 @@
     );
 
     function filterDate() {
-        const start = new Date(document.getElementById('start').value).toLocaleDateString();
-        const end = new Date(document.getElementById('end').value).toLocaleDateString();
+
+        const start = new Date(document.getElementById('start').value);
+        const end = new Date(document.getElementById('end').value);
         console.log(start);
         console.log(end);
 
