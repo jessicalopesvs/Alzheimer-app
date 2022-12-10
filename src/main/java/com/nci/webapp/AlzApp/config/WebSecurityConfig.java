@@ -32,16 +32,16 @@ public class WebSecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
-                .antMatchers("/users").hasAnyAuthority(RolesType.ADMIN.getValue())
+                .antMatchers("/static/**").permitAll()
+                .antMatchers("/admin/**").hasAnyAuthority(RolesType.ADMIN.getValue())
                 .antMatchers("/report/new").hasAnyAuthority(RolesType.USER.getValue())
                 .antMatchers("/report/table").hasAnyAuthority(RolesType.USER.getValue(), RolesType.ADMIN.getValue())
-                .antMatchers("/favicon.ico").permitAll()
                 .and()
                 .formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/home")
+                                .defaultSuccessUrl("/")
                                 .permitAll()
                 ).logout(
                         logout -> logout
@@ -57,8 +57,4 @@ public class WebSecurityConfig {
                 .passwordEncoder(passwordEncoder());
     }
 
-    @Bean
-    public WebSecurityCustomizer wsCust() {
-        return (web) -> web.ignoring().antMatchers("/static/**");
-    }
 }

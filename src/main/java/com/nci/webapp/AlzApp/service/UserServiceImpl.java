@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService{
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
+    //constructor
+
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder) {
@@ -29,6 +31,8 @@ public class UserServiceImpl implements UserService{
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+    //save user
 
     @Override
     public void saveUser(RequestUser requestUser, RolesType roleType) {
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
-
+    //method from using repository search
 
     @Override
     public User findByEmail(String email) {
