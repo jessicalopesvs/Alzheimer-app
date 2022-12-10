@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 public class AlzAppApplication {
 
+    //setting the index page
     public void addViewController(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/home.html");
     }

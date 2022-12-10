@@ -1,4 +1,4 @@
-package com.nci.webapp.AlzApp.security;
+package com.nci.webapp.AlzApp.service;
 
 import com.nci.webapp.AlzApp.model.Role;
 import com.nci.webapp.AlzApp.model.User;

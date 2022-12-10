@@ -33,14 +33,21 @@ public class InformationsController {
     @GetMapping ("/knowing-the-disease")
     public String informations(Model model){
 
+        /**
+         * CALLING MEDLINE API TO  GET INFORMATION ABOUT ALZHEIMER
+         */
+
         Medline api = restConfig.restTemplate().getForObject("https://medlineplus.gov/download/genetics/condition/alzheimer-disease.json", Medline.class);
 
         List textList = api.getTexts();
 //        System.out.println(textList.toString());
 
         List synonyms = api.getSynonyms();
+
         String synonymsString = Arrays.toString(synonyms.toArray()).replace("[","").replace("]","");
 //        System.out.println(synonyms.toString());
+
+        //Setting the models to display the information found in the api
 
         model.addAttribute("link", api.getGhr_page());
         model.addAttribute("name", api.getName());

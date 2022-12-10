@@ -31,6 +31,7 @@
     <div>
         <span class="mt-3 mr-4 d-flex justify-content-between">
             <a class="text-light mr-3" href="/">Home</a>
+            <a class="text-light mr-3" href="/knowing-the-disease">About AD</a>
             <a sec:authorize="!isAuthenticated()" class="text-light mr-3" href="/register">New Account</a>
             <a sec:authorize="hasAnyAuthority('USER')" class="text-light mr-3" href="/report/new">New Report</a>
             <a sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/dashboard">Dashboard</a>
