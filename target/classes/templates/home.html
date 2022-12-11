@@ -6,61 +6,65 @@
 <body>
 
 <header th:replace="~{fragments :: logo}"></header>
+<div id="body-container">
 
-<!--TOP CARD AND INFORMATION-->
-<div class="container-fluid top-img p-5">
-    <div class="row py-5 align-items-center">
-        <div class="col-lg-5 col-bg-5 col-md-12 col-sm-12 justify-content-center">
-            <img class="float-right img-fluid" th:src="@{/img/home-top-img-2.png}">
+    <!--TOP CARD AND INFORMATION-->
+    <div class="container-fluid top-img p-5">
+        <div class="row py-5 align-items-center">
+            <div class="col-lg-5 col-bg-5 col-md-12 col-sm-12 justify-content-center">
+                <img class="float-right img-fluid" th:src="@{/img/home-top-img-2.png}">
+            </div>
+            <div class="col-lg-7 col-bg-7 col-md-12 col-sm-12 align-items-center">
+                <h1 class="home-title text-left mt-5">Alzheimer Report Application </h1>
+                <p class="ml-4">Monitor the daily routine of a patient with Alzheimer's disease</p>
+            </div>
         </div>
-        <div class="col-lg-7 col-bg-7 col-md-12 col-sm-12 align-items-center">
-            <h1 class="home-title text-left mt-5">Alzheimer Report Application </h1>
-            <p class="ml-4">Monitor the daily routine of a patient with Alzheimer's disease</p>
+    </div>
+
+
+    <!--FEATURES PRESENTATION-->
+    <div class="container px-4 py-3" id="featured-1">
+        <h2 class="pb-2 border-bottom">Features</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="feature col">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                         class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                    </svg>
+                </div>
+                <h2>Daily Report form</h2>
+                <p>Fill Report of your daily routine with an Alzheimer patient, about medication, behavior and
+                    symptoms.</p>
+            </div>
+            <div class="feature col">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                         class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+                        <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
+                    </svg>
+                </div>
+                <h2>Dashboard</h2>
+                <p>All the data goes to a dashboard, so you can follow the evolution of the treatment. </p>
+
+            </div>
+            <div class="feature col">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                         class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+                        <path d="M11.02 5.364a3 3 0 0 0-4.242-4.243L1.121 6.778a3 3 0 1 0 4.243 4.243l5.657-5.657Zm-6.413-.657 2.878-2.879a2 2 0 1 1 2.829 2.829L7.435 7.536 4.607 4.707ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm-.5 1.042a3 3 0 0 0 0 5.917V9.042Zm1 5.917a3 3 0 0 0 0-5.917v5.917Z"/>
+                    </svg>
+                </div>
+                <h2>Side effects</h2>
+                <p>Learn about the side effects of the treatment by certain medicines.</p>
+
+            </div>
         </div>
     </div>
 </div>
-</div>
-
-<!--FEATURES PRESENTATION-->
-<div class="container px-4 py-3" id="featured-1">
-    <h2 class="pb-2 border-bottom">Features</h2>
-    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-        <div class="feature col">
-            <div class="feature-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                     class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
-                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
-                </svg>
-            </div>
-            <h2>Daily Report form</h2>
-            <p>Fill Report of your daily routine with an Alzheimer patient, about medication, behavior and symptoms.</p>
-        </div>
-        <div class="feature col">
-            <div class="feature-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                     class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
-                    <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
-                </svg>
-            </div>
-            <h2>Dashboard</h2>
-            <p>All the data goes to a dashboard, so you can follow the evolution of the treatment. </p>
-
-        </div>
-        <div class="feature col">
-            <div class="feature-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                     class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
-                    <path d="M11.02 5.364a3 3 0 0 0-4.242-4.243L1.121 6.778a3 3 0 1 0 4.243 4.243l5.657-5.657Zm-6.413-.657 2.878-2.879a2 2 0 1 1 2.829 2.829L7.435 7.536 4.607 4.707ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm-.5 1.042a3 3 0 0 0 0 5.917V9.042Zm1 5.917a3 3 0 0 0 0-5.917v5.917Z"/>
-                </svg>
-            </div>
-            <h2>Side effects</h2>
-            <p>Learn about the side effects of the treatment by certain medicines.</p>
-
-        </div>
-    </div>
-</div>
-
 <footer class="fix" th:replace="~{fragments :: footer}"></footer>
+
+</body>
 
 
 </body>

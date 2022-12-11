@@ -26,7 +26,7 @@
             <div class="flex-row  justify-content-center mb-3">
                 <!--FILTER AND SEARCH FORM-->
                 <!--/*@thymesVar id="error" type="com"*/-->
-                <div class="text-danger text-er ml-3" th:text="${error}"></div>
+                <div class="text-er ml-3" th:text="${error}"></div>
 
                 <!--/*@thymesVar id="reportSearchParams" type="com.nci.webapp"*/-->
                 <form method="GET" th:object="${reportSearchParams}"
@@ -55,12 +55,12 @@
         <div class="d-flex p-2 flex-row justify-content-center">
             <!--/*@thymesVar id="reports" type="com.nci.webapp"*/-->
             <div class="row d-flex">
-                <div class="table-wrap">
-                    <table class="table table-hover table-bordered table-striped table-md">
+                <div class="table-wrap reportTable">
+                    <table class="table table-hover table-bordered table-striped table-responsive table-sm">
                         <thead class="text-center table-bordered tophead">
                         <tr class="thead-hover">
                             <th sec:authorize="hasAnyAuthority('ADMIN')">User</th>
-                            <th>Report ID</th>
+                            <th sec:authorize="hasAnyAuthority('ADMIN')">Report ID</th>
 
 
                             <th class="px-5 mx-3">Report Date</th>
@@ -76,7 +76,7 @@
                         <tbody>
                         <tr th:each="report : ${reports}">
                             <td sec:authorize="hasAnyAuthority('ADMIN')" th:text="${report.user.username}">User</td>
-                            <td th:text="${report.id}">id</td>
+                            <td sec:authorize="hasAnyAuthority('ADMIN')" th:text="${report.id}">id</td>
                             <!--/*@thymesVar id="date" type="com.nci.webapp"*/-->
                             <td th:text="${#temporals.format(report.date, 'dd/MM/yyyy')}">17/04/1945</td>
                             <td th:text="${report.dayClassification}">Day Rating</td>

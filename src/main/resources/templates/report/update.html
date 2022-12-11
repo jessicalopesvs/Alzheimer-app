@@ -13,7 +13,7 @@
     <div class="card mb-5">
 
         <!--/*@thymesVar id="report" type="com"*/-->
-        <form th:action="@{/report/new-report}" method="POST" class="card-body" th:object="${report}">
+        <form th:action="@{/report/save}" method="POST" class="card-body" th:object="${report}">
 
             <!-- Add hidden form field to handle update -->
             <input type="hidden" th:field="*{id}"/>

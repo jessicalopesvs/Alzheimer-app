@@ -15,7 +15,6 @@ html, body{
 
 #body-main{
     overflow: auto;
-    padding-bottom: 100px;
 }
 
 .top-img {
@@ -134,9 +133,29 @@ table th {
 
 /****TABLE STYLE****/
 
+.reportTable table{
+    width: 80%;
+    justify-content: center;
+    margin: auto;
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .reportTable    table,td,th {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .reportTable   table,td,th {
+        font-size: 15px;
+    }
+}
 table, td{
     text-align: center;
     vertical-align: middle;
+
 }
 
 .table td.fit,
