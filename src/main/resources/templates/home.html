@@ -6,19 +6,20 @@
 <body>
 
 <header th:replace="~{fragments :: logo}"></header>
+<div id="body-container">
 
-<!--TOP CARD AND INFORMATION-->
-<div class="container-fluid top-img p-5">
-    <div class="row py-5 align-items-center">
-        <div class="col-lg-5 col-bg-5 col-md-12 col-sm-12 justify-content-center">
-            <img class="float-right img-fluid" th:src="@{/img/home-top-img-2.png}">
-        </div>
-        <div class="col-lg-7 col-bg-7 col-md-12 col-sm-12 align-items-center">
-            <h1 class="home-title text-left mt-5">Alzheimer Report Application </h1>
-            <p class="ml-4">Monitor the daily routine of a patient with Alzheimer's disease</p>
+    <!--TOP CARD AND INFORMATION-->
+    <div class="container-fluid top-img p-5">
+        <div class="row py-5 align-items-center">
+            <div class="col-lg-5 col-bg-5 col-md-12 col-sm-12 justify-content-center">
+                <img class="float-right img-fluid" th:src="@{/img/home-top-img-2.png}">
+            </div>
+            <div class="col-lg-7 col-bg-7 col-md-12 col-sm-12 align-items-center">
+                <h1 class="home-title text-left mt-5">Alzheimer Report Application </h1>
+                <p class="ml-4">Monitor the daily routine of a patient with Alzheimer's disease</p>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <!--FEATURES PRESENTATION-->
@@ -59,6 +60,7 @@
         </div>
     </div>
 </div>
+</body>
 
 <footer class="fix" th:replace="~{fragments :: footer}"></footer>
 
