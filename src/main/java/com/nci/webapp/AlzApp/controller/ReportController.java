@@ -225,7 +225,15 @@ public class ReportController {
     //dashboard view
     @GetMapping("/dashboard")
     public String dashboard(Model model, Principal principal) {
+        //discover logged user username
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username);
 
+        int reportCounter = user.getQuantityReports();
+         if(reportCounter < 7){
+             String messageDash = "There are not enough data do display at the dashboard";
+             model.addAttribute("message", messageDash);
+         }
 
         return "/report/dashboard";
     }

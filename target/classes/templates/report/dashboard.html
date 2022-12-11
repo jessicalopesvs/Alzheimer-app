@@ -9,22 +9,9 @@
 
 <div class="top-title"><h1>Report Dashboard</h1></div>
 
-<div class="row justify-content-center mx-5">
-
-    <label>Start: <input class="form-control" type="date"
-                         value="datePicker"
-                         id="start"></label>
-
-    <label class="ml-3"> End:
-        <input class="form-control" type="date"
-               value="datePicker"
-               id="end">
-    </label>
-    <div class="col-3 mt-2">
-        <button class="update-btn mt-2" onclick="filterDate()">Filter</button>
-
-        <button class="delete-btn mt-2" onclick="resetDate()">Reset</button>
-    </div>
+<!--/*@thymesVar id="message" type="com"*/-->
+<div th:if="${message != null}" class="d-flex p-2 flex-row justify-content-center">
+    <div class="alert alert-primary" th:text="${message}"></div>
 </div>
 
 <div class="flex-container mt-5 mb-3">
@@ -55,11 +42,11 @@
 <!--CREATING THE DASHBOARD VIA CHARTS API-->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+git push --force heroku master
 <script>
     //fetch function
     async function fetchData() {
-        const url = 'http://localhost:8080/api/reports/user-report.json';
+        const url = '/api/reports/user-report.json';
         const response = await fetch(url);
         //wait until the request has been completed
         const dataPoints = await response.json();
@@ -75,7 +62,6 @@
         const labels = user.reports.map(function (value) {
             return new Date(value.date).toLocaleDateString();
         });
-
 
 
 
@@ -157,15 +143,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    x:{
-                        min: (ctx) => {
 
-                            return ctx.chart.data.labels[0];
-                        },
-                        max: (ctx) => {
-                            return ctx.chart.data.labels[6];
-                        }
-                    },
                     y: {
                         beginAtZero: true,
                         max: 6
@@ -183,14 +161,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    x: {
-                        min: (ctx) => {
-                            return ctx.chart.data.labels[0];
-                        },
-                        max: (ctx) => {
-                            return ctx.chart.data.labels[30];
-                        }
-                    },
+
                     y: {
                         beginAtZero: true,
                         max: 6
@@ -208,11 +179,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    x: {
-                        min: (ctx) => {
-                            return ctx.chart.data.labels[0];
-                        },
-                    },
+
                     y: {
                         beginAtZero: true,
                         max: 6
@@ -223,29 +190,25 @@
     );
 
 
-    //FILTER
-
-    function filterDate() {
-
-        const start = new Date(document.getElementById('start').value);
-        const end = new Date(document.getElementById('end').value);
-        console.log(start);
-        console.log(end);
-
-
-        symptomsChart.config.options.scales.x.min = start;
-        symptomsChart.config.options.scales.x.max = end;
-
-        behaviorChart.config.options.scales.x.min = start;
-        behaviorChart.config.options.scales.x.max = end;
-
-        dayChart.config.options.scales.x.min = start;
-        dayChart.config.options.scales.x.max = end;
-
-        symptomsChart.update();
-        behaviorChart.update();
-        dayChart.update();
-    }
+    // //FILTER
+    //
+    // function filterDate() {
+    //     const start = new Date(document.getElementById('start').value).toLocaleDateString();
+    //     const end = new Date(document.getElementById('end').value).toLocaleDateString();
+    //
+    //     symptomsChart.config.options.scales.x.min = start;
+    //     symptomsChart.config.options.scales.x.max = end;
+    //
+    //     behaviorChart.config.options.scales.x.min = start;
+    //     behaviorChart.config.options.scales.x.max = end;
+    //
+    //     dayChart.config.options.scales.x.min = start;
+    //     dayChart.config.options.scales.x.max = end;
+    //
+    //     symptomsChart.update();
+    //     behaviorChart.update();
+    //     dayChart.update();
+    // }
 </script>
 
 <div class="container-fluid sticky-bottom">
