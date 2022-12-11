@@ -256,12 +256,13 @@ public class ReportController {
         }
 
 
+
         /**
          * The search function
          */
 
         //create the dropdown list
-        String message = "";
+        String message = "Insert a filter and a keyword";
 
         log.info("search params: {}", request.toString()); //cheking parameters searched on log
 
@@ -280,11 +281,8 @@ public class ReportController {
 
 
             }
-        }else if(request.getValue().isEmpty()){
-                message = "Search validation: Please, select a filter and or a key-word";
-                System.out.println(message);
-
         }
+
         model.addAttribute("error", message);
         model.addAttribute("filterList", FILTER_KEYS);
         model.addAttribute("reports", reports);
