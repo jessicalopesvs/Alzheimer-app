@@ -45,5 +45,8 @@ public class User {
     @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
+    @JsonIgnore
+    private int quantityReports;
+
 
 }

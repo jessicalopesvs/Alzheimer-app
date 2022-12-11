@@ -31,9 +31,7 @@ public class AdminController {
     public String users(Model model){
         List<User> users = userRepository.findAll();
         List<Report> reports = reportRepository.findAll();
-        int reportQtt = reports.size();
 
-        model.addAttribute("quantityReports", reportQtt);
         model.addAttribute("users", users);
         return "user/users";
     }

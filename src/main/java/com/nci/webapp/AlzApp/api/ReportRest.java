@@ -35,6 +35,7 @@ public class ReportRest {
         return Arrays.asList(user);
     }
 
+    //reports without data
     @GetMapping("report.json")
     public List<Report> getReport(Principal principal) {
 

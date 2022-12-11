@@ -26,14 +26,14 @@
         <button class="delete-btn mt-2" onclick="resetDate()">Reset</button>
     </div>
 </div>
-<!--    <button onclick="thirtyDaysFilter()">Reset</button>-->
 
 <div class="flex-container mt-5 mb-3">
 
 
     <div class="row justify-content-center">
 
-        <div class="col-xl-4 col-lg-6 col-12 col-md-6  col-sm-12 dash-canva "><h3 class="chart-title">Behaviour</h3>
+        <div class="col-xl-4 col-lg-6 col-12 col-md-6  col-sm-12 dash-canva ">
+            <h3 class="chart-title">Behavior</h3>
             <canvas id="behaviourChart"></canvas>
         </div>
         <div class="col-xl-4 col-lg-6 col-12 col-md-6 col-sm-12 dash-canva "><h3 class="chart-title">Symptoms</h3>
@@ -79,14 +79,14 @@
 
 
 
-        // this can just be replicated for symptoms
-        const behaviours = ['Anger', 'Fear', 'Trust', 'Disgust', 'Sadness', 'Anticipation', 'Joy', 'Surprise'];
-        const datasets = behaviours.map(function (behaviourName) {
+        //BEHAVIOUR DATA CHART//
+        const behaviors = ['Anger', 'Fear', 'Trust', 'Disgust', 'Sadness', 'Anticipation', 'Joy', 'Surprise'];
+        const datasets = behaviors.map(function (behaviorName) {
             const data = user.reports.map(function (value) {
-                return value.behaviour[behaviourName];
+                return value.behaviour[behaviorName];
             });
             return {
-                label: behaviourName,
+                label: behaviorName,
                 data: data,
                 borderWidth: 1
             };
@@ -95,16 +95,14 @@
 
         const size = datasets.length;
 
-        if(size < 15){
-            console.log("menor que 7");
-        }
         //generating behaviour chart
-        behaviourChart.config.data.labels = labels;
-        behaviourChart.config.data.datasets = datasets;
-        behaviourChart.update();
+        behaviorChart.config.data.labels = labels;
+        behaviorChart.config.data.datasets = datasets;
+        behaviorChart.update();
 
-        //SYMPTOMS CHART//
+        //SYMPTOMS DATA CHART//
         const symptoms = ['Appetite', 'Nauseus', 'Headache', 'Somnolence', 'Weakness', 'Bodyache', 'Confusional_state', 'Vomit'];
+        //MAPPING THE DATASET
         const sympDatasets = symptoms.map(function (symptomName) {
             const sympData = user.reports.map(function (value) {
                 return value.symptom[symptomName];
@@ -147,9 +145,10 @@
     });
 
 
+    //GENERATING CHARTS
 
 
-    const behaviourChart = new Chart(
+    const behaviorChart = new Chart(
 
         document.getElementById('behaviourChart'),
         {
@@ -223,6 +222,9 @@
         }
     );
 
+
+    //FILTER
+
     function filterDate() {
 
         const start = new Date(document.getElementById('start').value);
@@ -234,14 +236,14 @@
         symptomsChart.config.options.scales.x.min = start;
         symptomsChart.config.options.scales.x.max = end;
 
-        behaviourChart.config.options.scales.x.min = start;
-        behaviourChart.config.options.scales.x.max = end;
+        behaviorChart.config.options.scales.x.min = start;
+        behaviorChart.config.options.scales.x.max = end;
 
         dayChart.config.options.scales.x.min = start;
         dayChart.config.options.scales.x.max = end;
 
         symptomsChart.update();
-        behaviourChart.update();
+        behaviorChart.update();
         dayChart.update();
     }
 </script>

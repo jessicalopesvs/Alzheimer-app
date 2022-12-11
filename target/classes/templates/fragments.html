@@ -33,8 +33,9 @@
             <a class="text-light mr-3" href="/">Home</a>
             <a class="text-light mr-3" href="/knowing-the-disease">About AD</a>
             <a sec:authorize="!isAuthenticated()" class="text-light mr-3" href="/register">New Account</a>
+            <a sec:authorize="hasAnyAuthority('ADMIN')" class="text-light mr-3" href="/admin/users">Users</a>
             <a sec:authorize="hasAnyAuthority('USER')" class="text-light mr-3" href="/report/new">New Report</a>
-            <a sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/dashboard">Dashboard</a>
+            <a sec:authorize="hasAnyAuthority('USER')" class="text-light mr-3" href="/report/dashboard">Dashboard</a>
             <a sec:authorize="isAuthenticated()" class="text-light mr-3" href="/report/table">Reports</a>
             <a class="text-light" href="/login" sec:authorize="!isAuthenticated()">
                 <span>Login</span> </a>
