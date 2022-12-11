@@ -27,17 +27,6 @@ import java.util.stream.Collectors;
 public class ReportController {
 
 
-    /**
-     * VIEW AND SEARCH DATA
-     */
-
-    //Setting the list to filter the search
-    private static final String MEDICATION = "Medication";
-    private static final String SIDE_EFFECTS = "Side effects";
-    private static final String DAY_RATING = "Day rating";
-
-    //show report form
-    private static final List<String> FILTER_KEYS = Arrays.asList(MEDICATION, SIDE_EFFECTS, DAY_RATING);
 
     //save report form
     @Autowired //inject
@@ -202,7 +191,21 @@ public class ReportController {
         model.addAttribute("message", message);
 
         return "forward:/report/table";
+
+
     }
+
+    /**
+     * VIEW AND SEARCH DATA
+     */
+
+    //Setting the list to filter the search
+    private static final String MEDICATION = "Medication";
+    private static final String SIDE_EFFECTS = "Side effects";
+
+
+    //show report form
+    private static final List<String> FILTER_KEYS = Arrays.asList(MEDICATION, SIDE_EFFECTS);
 
     @GetMapping("/table")
     public String table(@Valid ReportSearchParams request, Model model, Principal principal) {

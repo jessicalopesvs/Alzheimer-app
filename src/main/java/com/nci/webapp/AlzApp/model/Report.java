@@ -29,7 +29,6 @@ public class Report implements Serializable {
     private LocalDate date;
     private String drug;
     private int dayClassification;
-    private int moodSwingClass;
     @Column(name="arguments")
     @ElementCollection(targetClass=String.class)
     private List<String> sideEffects = new ArrayList<>();

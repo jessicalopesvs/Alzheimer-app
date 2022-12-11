@@ -8,7 +8,7 @@ public enum Symptoms {
 
     SOMNOLENCE("Somnolence"),
     WEAKNESS("Weakness"),
-    NAUSEUS("Nauseus"),
+    NAUSEUS("Nauseous"),
     VOMIT("Vomit"),
     APPETITE("Appetite"),
     HEADACHE("Headache"),
@@ -28,6 +28,11 @@ public enum Symptoms {
 
     public static Stream<Symptoms> stream(){
         return Stream.of(Symptoms.values());
+    }
+
+    @Override
+    public String toString() {
+        return displayValue + '\'';
     }
 }
 

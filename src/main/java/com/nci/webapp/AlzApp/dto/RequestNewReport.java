@@ -27,8 +27,7 @@ public class RequestNewReport implements Serializable {
     private LocalDate date;
     private String drug;
     private int dayClassification;
-    private int moodSwingClass;
-    private Emotions moodSwing;
+
 
     //Lists
 
@@ -42,12 +41,12 @@ public class RequestNewReport implements Serializable {
 
     }
 
-
     //add to report table
 
     public Report toReport(){
         Report report = new Report();
 
+        //If has id will update the row
         if (id != 0){
             report.setId(id);
         }
@@ -56,7 +55,7 @@ public class RequestNewReport implements Serializable {
         report.setDate(date);
         report.setDayClassification(dayClassification);
         report.setDrug(drug);
-        report.setMoodSwingClass(moodSwingClass);
+
 
         //Setting lists
         report.setSideEffects(sideEffects);
