@@ -67,7 +67,7 @@
                             <th>Day Rating</th>
                             <th class="px-5">Medication</th>
                             <th class="px-5">Side Effects</th>
-                            <th class="px-5">Behavior</th>
+                            <th class="px-5">Behaviour</th>
                             <th class="px-5">Symptom</th>
                             <th sec:authorize="hasAnyAuthority('USER')">Edit</th>
 
@@ -84,7 +84,7 @@
                             <td th:text="${report.sideEffects}">Side Effects</td>
                             <td>
                                 <div th:each="p : ${report.behaviour}"><span th:text="${p.key}"></span> <span
-                                        th:text="*{report.behaviour['__${p.key}__']}">Behaviors List</span></div>
+                                        th:text="*{report.behaviour['__${p.key}__']}">Behaviours List</span></div>
                             </td>
                             <td>
                                 <div th:each="s : ${report.symptom}"><span th:text="${s.key}"></span> <span
