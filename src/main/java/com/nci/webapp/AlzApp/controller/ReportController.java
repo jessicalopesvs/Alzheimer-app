@@ -280,7 +280,7 @@ public class ReportController {
 
 
             }
-        }else{
+        }else if(request.getValue().isEmpty()){
                 message = "Search validation: Please, select a filter and or a key-word";
                 System.out.println(message);
 
