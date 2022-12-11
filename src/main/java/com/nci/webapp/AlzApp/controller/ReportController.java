@@ -267,16 +267,6 @@ public class ReportController {
 
         //seting the switch case based on the user choice
         if (request.getKey() != null) {
-            if (request.getKey().contains("none") && request.getValue().isBlank() && request.getValue().isEmpty()) {
-                message = "Search validation: Please, select a filter and a key-word";
-                System.out.println(message);
-            } else if (request.getValue().isBlank() || request.getValue().isEmpty()) {
-                message = "Search validation: Please, type a key-word";
-                System.out.println(message);
-            } else if (request.getKey().contains("none")) {
-                message = "Search validation:  The filter field must be selected";
-                System.out.println(message);
-            } else {
 
                 switch (request.getKey()) {
                     case MEDICATION:
@@ -288,8 +278,12 @@ public class ReportController {
                     default:
                         log.info("no key selected");
 
-                }
+
             }
+        }else{
+                message = "Search validation: Please, select a filter and or a key-word";
+                System.out.println(message);
+
         }
         model.addAttribute("error", message);
         model.addAttribute("filterList", FILTER_KEYS);
