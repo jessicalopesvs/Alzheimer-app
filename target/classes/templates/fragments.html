@@ -7,11 +7,16 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
 
+<!--    fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@100;400;500;600&family=Montserrat:wght@100;400;600&display=swap"
           rel="stylesheet">
     <link th:href="@{/style/style.css}" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/2e9a7815c7.js" crossorigin="anonymous"></script>
+
+
 
     <!--    FAVICON-->
     <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.png}">
@@ -22,7 +27,8 @@
 
 <!--MENU TOP-->
 <header th:fragment="logo" xmlns:sec="http://www.w3.org/1999/xhtml"
-        class="navbar row logo-container p-2 d-flex justify-content-between">
+        class="navbar row logo-container p-2 d-flex justify-content-md-between justify-content-sm-center  justify-content-sm-center justify-content-xs-center">
+    
     <div class="logo">
         <span class="ml-4"> <a class=" logo text-light mr-3" href="/">AlzApp</a></span>
         <img class="bi me-2" width="70" height="70" th:src="@{/img/logo.png}">

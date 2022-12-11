@@ -98,8 +98,6 @@ public class ReportServiceImp implements ReportService {
 
 
 
-
-
     //generating lists to display on the report form
 
     public HashMap<String, Integer> behaviourList (){
