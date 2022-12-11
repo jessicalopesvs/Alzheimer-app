@@ -62,7 +62,7 @@
 <script>
     //fetch function
     async function fetchData() {
-        const url = 'http://localhost:8080/api/reports/user-report.json';
+        const url = '/api/reports/user-report.json';
         const response = await fetch(url);
         //wait until the request has been completed
         const dataPoints = await response.json();
