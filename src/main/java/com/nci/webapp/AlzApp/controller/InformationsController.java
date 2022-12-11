@@ -81,7 +81,7 @@ public class InformationsController {
 
         model.addAttribute("rssArticles", articles);
 
-        return "/informations";
+        return "informations";
     }
 
 

@@ -235,7 +235,7 @@ public class ReportController {
              model.addAttribute("message", messageDash);
          }
 
-        return "/report/dashboard";
+        return "report/dashboard";
     }
 
     //table view
