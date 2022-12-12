@@ -40,7 +40,7 @@
             <h2>Behavior</h2>
             <div class="form-group">
                 <label>How do you classify the day?</label></br>
-                <small>0 for hard 5 for easy</small></br>
+                <small>0 for hard 5 for hard</small></br>
                 <input th:field="*{dayClassification}" type="range" class="form-range" min="0" max="5" step="1"
                        onInput="$('#rangeval').html($(this).val())" required>
                 <span id="rangeval">0<!-- Default value --></span>
