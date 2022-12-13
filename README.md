@@ -6,7 +6,7 @@ The idea behind this project was to develop a system that can help doctors and p
 Webapplication presented in December 2022, for the Final Project for the Higher Diploma in Science in Computing at the National College of Ireland.
 
 
-Technologies Used: Java, Maven, mySQL, SpringBoot, SpringMVC, Thymeleaf, Bootstrap, SpringSecurity, REST Api, JavaScript.
+Technologies Used: Java, Maven, mySQL, SpringBoot, SpringMVC, Thymeleaf, Bootstrap, SpringSecurity, REST Api, JavaScript and Chart.js.
 
 
 # Check the project deployed
